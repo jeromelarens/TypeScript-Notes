@@ -1,18 +1,18 @@
 <div align="center">
 
-# 🚀 Day 01 — TypeScript Fundamentals & Setup
+# 🚀 Day 02 — Basic Types & Type Inference
 
-### From "What is TypeScript?" to your first compiled project
+### Learn the building blocks of the TypeScript type system, with practice at every step
 
-![Day](https://img.shields.io/badge/Day-01%20of%2010-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
+![Day](https://img.shields.io/badge/Day-02%20of%2010-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
 ![Level](https://img.shields.io/badge/Level-Beginner-2ea44f?style=for-the-badge)
-![Time](https://img.shields.io/badge/Study%20Time-3--4%20hrs-orange?style=for-the-badge)
-![Tasks](https://img.shields.io/badge/Tasks-20%2B-blueviolet?style=for-the-badge)
-![Node](https://img.shields.io/badge/Node.js-LTS-339933?style=for-the-badge&logo=node.js&logoColor=white)
+![Time](https://img.shields.io/badge/Study%20Time-4--5%20hrs-orange?style=for-the-badge)
+![Tasks](https://img.shields.io/badge/Tasks-25%2B-blueviolet?style=for-the-badge)
+![Quiz](https://img.shields.io/badge/Quiz-10%20Questions-ff69b4?style=for-the-badge)
 
 **10 Days of TypeScript | Fundamentals → Real-World Backend Development**
 
-*The goal is not just to write code that works. It's to write code that's easier to understand, maintain, debug and scale.*
+*The goal is to understand not only **how** to declare types, but **when** and **why** to use them.*
 
 </div>
 
@@ -20,20 +20,27 @@
 
 ## 🧭 How to Use This Guide
 
-This is a **study kit**, not just notes. Follow this order for the best result:
-
 | Step | What to do | Time |
 |:---:|---|:---:|
-| 1️⃣ | Read **Parts 1–3** (concepts) | 30 min |
-| 2️⃣ | Do the **setup** and type every command yourself | 30 min |
-| 3️⃣ | Understand **tsconfig.json** and **type checking** | 30 min |
-| 4️⃣ | Complete **Tasks Level 1 → 3** (no peeking at solutions!) | 60 min |
+| 1️⃣ | Quick **Day 1 recap** | 10 min |
+| 2️⃣ | Read each type section and **run every example yourself** | 90 min |
+| 3️⃣ | Read **Type Inference** and **Any vs Unknown** twice (most important!) | 30 min |
+| 4️⃣ | Complete **Tasks Level 1 → 3** (don't peek at solutions) | 70 min |
 | 5️⃣ | Solve the **Debugging Challenges** | 20 min |
-| 6️⃣ | Build the **Mini Project** | 45 min |
-| 7️⃣ | Take the **Quiz** and review **Interview Questions** | 30 min |
+| 6️⃣ | Build the **Student Management mini project** | 45 min |
+| 7️⃣ | **Quiz** + **Interview Questions** | 30 min |
 
 > [!TIP]
-> **Golden rule:** Don't copy-paste code. Type it. Your fingers learn what your eyes skip.
+> **Golden rule:** Type the code yourself. Break it on purpose. Read the error. That's how types become natural.
+
+> [!IMPORTANT]
+> **Running multiple practice files in the same project?**
+> A `.ts` file with no `import`/`export` is treated as a *global script*. Two files that both declare `const age` will clash with the error `Cannot redeclare block-scoped variable 'age'`.
+> **Fix:** add this line at the very top of every practice file:
+> ```typescript
+> export {};
+> ```
+> This turns the file into a module with its own scope.
 
 ---
 
@@ -41,108 +48,102 @@ This is a **study kit**, not just notes. Follow this order for the best result:
 
 | # | Section |
 |:-:|---|
+| 0 | [🔁 Day 1 Recap](#-day-1-recap) |
 | 1 | [🎯 Learning Objectives](#-learning-objectives) |
-| 2 | [📖 What Is TypeScript?](#-what-is-typescript) |
-| 3 | [💡 Why Do We Need TypeScript?](#-why-do-we-need-typescript) |
-| 4 | [⚖️ JavaScript vs TypeScript](#️-javascript-vs-typescript) |
-| 5 | [⚙️ How TypeScript Works Internally](#️-how-typescript-works-internally) |
-| 6 | [🛠️ Prerequisites](#️-prerequisites) |
-| 7 | [📁 Project Setup (Step by Step)](#-project-setup-step-by-step) |
-| 8 | [🧠 Understanding tsconfig.json](#-understanding-tsconfigjson) |
-| 9 | [🔍 Type Checking in Action](#-type-checking-in-action) |
-| 10 | [🌍 Real-World Backend Example](#-real-world-backend-example) |
-| 11 | [❌ Common Mistakes & Error Messages](#-common-mistakes--error-messages) |
-| 12 | [🧪 Hands-On Tasks (Level 1–3)](#-hands-on-tasks) |
-| 13 | [🐞 Debugging Challenges](#-debugging-challenges) |
-| 14 | [🏗️ Mini Project: Shop Billing](#️-mini-project-shop-billing-calculator) |
-| 15 | [📝 Quiz](#-quiz-test-yourself) |
-| 16 | [🎤 Interview Questions](#-interview-questions) |
-| 17 | [📄 Cheat Sheet](#-day-1-cheat-sheet) |
-| 18 | [📚 Glossary](#-glossary) |
-| 19 | [🛟 Troubleshooting](#-troubleshooting) |
-| 20 | [✅ Progress Tracker](#-progress-tracker) |
-| 21 | [🔜 What's Next](#-day-2--basic-types--type-inference) |
+| 2 | [📖 What Are Types?](#-what-are-types-in-typescript) |
+| 3 | [🏷️ Type Annotations](#️-type-annotations) |
+| 4 | [🔤 String](#-1-string-type) |
+| 5 | [🔢 Number](#-2-number-type) |
+| 6 | [✅ Boolean](#-3-boolean-type) |
+| 7 | [📚 Arrays](#-4-array-types) |
+| 8 | [📦 Tuples](#-5-tuple-types) |
+| 9 | [⚠️ any](#️-6-the-any-type) |
+| 10 | [🛡️ unknown](#️-7-the-unknown-type) |
+| 11 | [⚖️ any vs unknown](#️-any-vs-unknown) |
+| 12 | [🔄 void](#-8-void-type) |
+| 13 | [🚫 never](#-9-never-type) |
+| 14 | [🎁 Bonus: null & undefined](#-bonus-null-and-undefined) |
+| 15 | [🧠 Type Inference](#-type-inference) |
+| 16 | [🆚 Annotation vs Inference](#-type-annotations-vs-type-inference) |
+| 17 | [🗺️ Which Type Should I Use?](#️-which-type-should-i-use) |
+| 18 | [🌍 Real-World Backend Example](#-real-world-backend-example) |
+| 19 | [❌ Common Mistakes & Errors](#-common-mistakes--error-messages) |
+| 20 | [🧪 Hands-On Tasks](#-hands-on-tasks) |
+| 21 | [🐞 Debugging Challenges](#-debugging-challenges) |
+| 22 | [🏗️ Mini Project](#️-mini-project-student-management) |
+| 23 | [📝 Quiz](#-quiz-test-yourself) |
+| 24 | [🎤 Interview Questions](#-interview-questions) |
+| 25 | [📄 Cheat Sheet](#-day-2-cheat-sheet) |
+| 26 | [📚 Glossary](#-glossary) |
+| 27 | [🛟 Troubleshooting](#-troubleshooting) |
+| 28 | [✅ Progress Tracker](#-progress-tracker) |
+
+---
+
+## 🔁 Day 1 Recap
+
+Before we start, answer these **without looking** at Day 1:
+
+1. What does `tsc` do?
+2. What happens to type annotations after compilation?
+3. Does an `interface` validate an incoming HTTP request at runtime?
+
+<details>
+<summary>✅ Check your answers</summary>
+
+1. `tsc` checks TypeScript code and compiles it into JavaScript.
+2. They are removed (erased). Only JavaScript remains.
+3. No. Interfaces don't exist at runtime. External data needs runtime validation.
+
+</details>
+
+If you got all three, you're ready. 🎉
 
 ---
 
 ## 🎯 Learning Objectives
 
-By the end of Day 1, you should be able to:
+By the end of Day 2, you should be able to:
 
-- [ ] Explain what TypeScript is and how it relates to JavaScript
-- [ ] Explain static type checking and type inference
-- [ ] List the differences between JavaScript and TypeScript
-- [ ] Draw the TypeScript compilation flow from memory
-- [ ] Set up a TypeScript project using Node.js and npm
-- [ ] Write, compile and run a `.ts` file
-- [ ] Configure the compiler using `tsconfig.json`
-- [ ] Explain what the compiler **can** catch and what it **cannot**
+- [ ] Use `string`, `number` and `boolean` correctly
+- [ ] Declare typed arrays and tuples
+- [ ] Explain the difference between `any` and `unknown`
+- [ ] Use `typeof` to narrow an `unknown` value safely
+- [ ] Explain `void` and `never`
+- [ ] Predict what type TypeScript will infer
+- [ ] Decide when to annotate and when to let TypeScript infer
+- [ ] Read common type errors and fix them
+- [ ] Apply basic types to backend-style data
 
 ---
 
-## 📖 What Is TypeScript?
+## 📖 What Are Types in TypeScript?
 
-TypeScript is a **strongly typed programming language built on top of JavaScript**. It adds a **type system** and **compile-time checking**. It is open-source and maintained by Microsoft.
-
-> **TypeScript = JavaScript + Types**
-
-### 🧩 Real-life analogy
-
-Think of **Microsoft Word's spell-checker**:
-
-| Writing a document | Writing code |
-|---|---|
-| You can write anything without a spell-checker | JavaScript lets you write anything |
-| Spell-checker underlines mistakes **while you type** | TypeScript underlines mistakes **before you run** |
-| The final printed page has no red lines | The final JavaScript has no types |
-
-TypeScript is a spell-checker for your code. After checking, it hands over normal JavaScript.
-
-### Example: JavaScript
-
-```javascript
-function add(a, b) {
-  return a + b;
-}
-
-console.log(add(10, 20));   // 30
-console.log(add("10", 20)); // "1020"  <-- surprise! string joining, not addition
-```
-
-JavaScript happily accepts both. There is no warning, and the bug appears later in production.
-
-### Example: TypeScript
+A **type** describes the **kind of value** a variable, parameter, property or expression can hold.
 
 ```typescript
-function add(a: number, b: number): number {
-  return a + b;
-}
-
-console.log(add(10, 20)); // 30
-
-// ❌ Compile-time error:
-// Argument of type 'string' is not assignable to parameter of type 'number'.
-console.log(add("10", 20));
+let username: string = "Developer";
+let age: number = 22;
+let isLearning: boolean = true;
 ```
 
-Read the signature like English:
+| Type | Represents | Examples |
+|---|---|---|
+| `string` | Text | `"Hello"`, `'Hi'`, `` `Hey` `` |
+| `number` | Numbers (integer and decimal) | `22`, `499.99`, `-5` |
+| `boolean` | True or false | `true`, `false` |
 
-| Part | Meaning |
+### 🧩 Analogy: labelled boxes
+
+Imagine kitchen containers with labels:
+
+| Container label | What you can put inside |
 |---|---|
-| `a: number` | `a` must be a number |
-| `b: number` | `b` must be a number |
-| `): number` | the function returns a number |
+| 🧂 `salt` | Only salt |
+| 🍚 `rice` | Only rice |
+| 📦 `unknown` | Anything, but **check it before you cook with it** |
 
-> [!IMPORTANT]
-> TypeScript checks types **while you develop/compile**. It does **not** automatically validate data that arrives at runtime (HTTP requests, user input, database rows, third-party APIs).
-
----
-
-## 💡 Why Do We Need TypeScript?
-
-Small scripts are easy to manage. Big projects with many files and many developers are not. TypeScript gives different parts of your code a **clear contract**.
-
-### 1. Catch errors earlier
+A type is a **label on a box**. TypeScript is the person who stops you from pouring rice into the salt jar.
 
 ```typescript
 let age: number = 22;
@@ -151,517 +152,1060 @@ let age: number = 22;
 age = "twenty-two";
 ```
 
-### 2. Code explains itself
+> [!IMPORTANT]
+> Type checking happens during **development and compilation**. Type annotations do **not** validate data at runtime.
+
+---
+
+## 🏷️ Type Annotations
+
+A **type annotation** explicitly declares the expected type.
+
+### Syntax
 
 ```typescript
-function calculatePrice(price: number, quantity: number): number {
-  return price * quantity;
+let variableName: type = value;
+//                ^^^^ the annotation
+```
+
+### Examples
+
+```typescript
+let username: string = "Jerome";
+let age: number = 22;
+let isDeveloper: boolean = true;
+```
+
+### Annotating functions
+
+```typescript
+function greet(name: string): string {
+  return `Hello, ${name}!`;
+}
+
+console.log(greet("Developer"));
+```
+
+```text
+Hello, Developer!
+```
+
+```text
+function greet ( name: string ) : string
+                 ^^^^^^^^^^^^        ^^^^^^
+                 parameter type      return type
+```
+
+### Declaring first, assigning later
+
+```typescript
+let city: string;     // declared with a type, no value yet
+city = "Chennai";     // ✅
+city = 600001;        // ❌ Type 'number' is not assignable to type 'string'.
+```
+
+---
+
+## 🔤 1. String Type
+
+`string` represents **text**.
+
+### Three ways to write strings
+
+```typescript
+const a: string = "double quotes";
+const b: string = 'single quotes';
+const c: string = `backticks (template literal)`;
+```
+
+### Template literals (very useful!)
+
+```typescript
+const firstName: string = "Jerome";
+const lastName: string = "Larens";
+
+const fullName: string = `${firstName} ${lastName}`;
+console.log(fullName);
+```
+
+```text
+Jerome Larens
+```
+
+Anything inside `${ ... }` is evaluated, so you can even do math:
+
+```typescript
+const price: number = 500;
+console.log(`Total with tax: ₹${price * 1.18}`);
+```
+
+```text
+Total with tax: ₹590
+```
+
+### Handy string properties and methods
+
+```typescript
+const email: string = "  Jerome@Example.com  ";
+```
+
+| Code | Result |
+|---|---|
+| `email.length` | `22` |
+| `email.trim()` | `"Jerome@Example.com"` |
+| `email.trim().toLowerCase()` | `"jerome@example.com"` |
+| `email.includes("@")` | `true` |
+| `"TypeScript".toUpperCase()` | `"TYPESCRIPT"` |
+| `"TypeScript".slice(0, 4)` | `"Type"` |
+| `"a,b,c".split(",")` | `["a", "b", "c"]` |
+| `"Hello".startsWith("He")` | `true` |
+| `"I like JS".replace("JS", "TS")` | `"I like TS"` |
+
+> TypeScript knows these methods exist on strings, so your editor will **autocomplete** them. Try typing `email.` in VS Code!
+
+### When to use `string`
+
+- Usernames, emails, product names, descriptions
+- Phone numbers and postal codes (they can start with `0`!)
+- IDs that may contain letters, like `"ORD-1001"`
+
+> [!TIP]
+> **Best practice:** Phone numbers, pincodes and many IDs should be `string`, not `number`. A number would drop the leading zero: `0123` ≠ `"0123"`.
+
+### 🧪 Mini practice
+
+What's the type of each?
+
+```typescript
+const a = "hello";
+const b = `hello ${1 + 1}`;
+const c = "5";
+```
+
+<details>
+<summary>Answer</summary>
+
+All three are strings (`a` is the literal type `"hello"` as a `const`, but it's still a string). `"5"` is **text**, not a number.
+
+</details>
+
+---
+
+## 🔢 2. Number Type
+
+`number` represents **integers and decimals**. There is no separate `int` or `float`.
+
+```typescript
+const age: number = 22;
+const price: number = 499.99;
+const temperature: number = -5;
+const hex: number = 0xff;   // 255
+```
+
+### Math
+
+```typescript
+const price: number = 500;
+const quantity: number = 4;
+
+console.log(price * quantity);  // 2000
+console.log(price + quantity);  // 504
+console.log(price / quantity);  // 125
+console.log(price % 3);         // 2  (remainder)
+console.log(2 ** 3);            // 8  (power)
+```
+
+### Useful number tools
+
+| Code | Result | Note |
+|---|---|---|
+| `(3.14159).toFixed(2)` | `"3.14"` | ⚠️ returns a **string**! |
+| `Math.round(4.6)` | `5` | |
+| `Math.floor(4.9)` | `4` | |
+| `Math.ceil(4.1)` | `5` | |
+| `Math.max(3, 9, 5)` | `9` | |
+| `Math.min(3, 9, 5)` | `3` | |
+| `Number("42")` | `42` | string → number |
+| `Number("abc")` | `NaN` | invalid conversion |
+| `parseInt("42px")` | `42` | |
+| `Number.isNaN(NaN)` | `true` | |
+
+### Special values
+
+```typescript
+const a: number = Infinity;
+const b: number = NaN;     // "Not a Number", but its type is still number!
+```
+
+### 🚨 Gotcha 1: floating-point math
+
+```typescript
+console.log(0.1 + 0.2);  // 0.30000000000000004
+```
+
+This is not a TypeScript bug. It's how JavaScript numbers work. For money, production systems often store **integer minor units** (like paise) or use a decimal library:
+
+```typescript
+const priceInPaise: number = 49999;           // ₹499.99
+const priceInRupees: number = priceInPaise / 100;
+```
+
+### 🚨 Gotcha 2: `toFixed()` returns a string
+
+```typescript
+const rounded = (5).toFixed(2);   // "5.00"  <-- a string
+// ❌ This won't compile:
+// const x: number = (5).toFixed(2);
+// ✅ Convert it back if you need a number:
+const x: number = Number((5).toFixed(2));  // 5
+```
+
+### 🧪 Mini practice
+
+What does this print?
+
+```typescript
+console.log(10 + 5 + "3");
+console.log("3" + 10 + 5);
+```
+
+<details>
+<summary>Answer</summary>
+
+```text
+153
+3105
+```
+
+Left to right: `10 + 5 = 15`, then `15 + "3"` = `"153"`. In the second line, `"3" + 10` = `"310"`, then `"310" + 5` = `"3105"`. This is why TypeScript's type checking is so useful.
+
+</details>
+
+---
+
+## ✅ 3. Boolean Type
+
+`boolean` has exactly two values: `true` and `false`.
+
+```typescript
+const isLoggedIn: boolean = true;
+const isAdmin: boolean = false;
+```
+
+### Comparisons produce booleans
+
+```typescript
+const age: number = 20;
+
+const isAdult: boolean = age >= 18;       // true
+const isTeen: boolean = age >= 13 && age <= 19;  // false
+const isStudent: boolean = !isAdult;      // false
+```
+
+| Operator | Meaning | Example | Result |
+|:-:|---|---|:-:|
+| `===` | equal (strict) | `5 === 5` | `true` |
+| `!==` | not equal | `5 !== 3` | `true` |
+| `>` `<` `>=` `<=` | comparison | `5 >= 5` | `true` |
+| `&&` | AND | `true && false` | `false` |
+| `\|\|` | OR | `true \|\| false` | `true` |
+| `!` | NOT | `!true` | `false` |
+
+### Practical example
+
+```typescript
+const isAuthenticated: boolean = true;
+
+if (isAuthenticated) {
+  console.log("Access granted");
+} else {
+  console.log("Access denied");
 }
 ```
 
-Without reading the body you already know: two numbers in, one number out.
+### Common use cases
 
-### 3. Better editor support (VS Code)
+- Feature flags
+- Login status
+- Stock availability
+- Success/failure results
+- Configuration options
 
-- Autocomplete that actually knows your data
-- Hover to see types
-- Jump to definition
-- Rename a variable across the whole project safely
-- Red underlines before you run
+> [!WARNING]
+> A `boolean` variable does not make something **secure**. Authorization must be enforced by trusted server-side logic, never just by a flag.
 
-### 4. Safer refactoring
+---
 
-Change a function signature and the compiler shows **every place** that needs fixing.
+## 📚 4. Array Types
 
-### 5. Better backend structure
+An **array** stores multiple values. The type says what each element must be.
+
+### Syntax
+
+```typescript
+let variableName: type[] = [];
+```
 
 ```mermaid
 flowchart LR
-    A[Routes] --> B[Controllers]
-    B --> C[Services]
-    C --> D[(Database Layer)]
-    style A fill:#3178C6,color:#fff
-    style B fill:#3178C6,color:#fff
-    style C fill:#3178C6,color:#fff
-    style D fill:#3178C6,color:#fff
+    A["string[]"] --> B["['JS', 'Node', 'TS']"]
+    C["number[]"] --> D["[85, 90, 78]"]
+    E["boolean[]"] --> F["[true, false, true]"]
 ```
 
-Every arrow is data moving between layers. TypeScript describes what that data looks like.
-
-### ⚠️ What TypeScript does NOT guarantee
-
-| TypeScript cannot guarantee | You still need |
-|---|---|
-| API request contains valid data | Runtime validation |
-| Database query will succeed | Error handling |
-| Network stays available | Retries / timeouts |
-| External API returns expected shape | Validation of responses |
-| Business logic is correct | Tests |
-| App is secure | Security practices |
-
----
-
-## ⚖️ JavaScript vs TypeScript
-
-| Feature | JavaScript | TypeScript |
-|---|---|---|
-| File extension | `.js` | `.ts` |
-| Type annotations | ❌ Not in ordinary JS syntax | ✅ Supported |
-| Type checking | Mostly at runtime | At compile time |
-| Needs compiling? | No (for plain Node.js) | Usually yes (converted to JS) |
-| Type inference | Runtime values decide | Compiler infers types |
-| Editor support | Good | Excellent, type-aware |
-| Runs on | JavaScript runtime | **Same** JavaScript runtime |
-| Learning curve | Lower at first | Extra concepts to learn |
-
-> **Key takeaway:** TypeScript does **not** replace JavaScript's runtime. The final output is always JavaScript.
-
----
-
-## ⚙️ How TypeScript Works Internally
-
-Node.js does not understand TypeScript syntax in the conventional workflow. The TypeScript compiler (`tsc`) checks your code and converts it to JavaScript.
-
-```mermaid
-flowchart TD
-    A["📝 TypeScript Source (.ts)"] --> B["🔧 TypeScript Compiler (tsc)"]
-    B --> C{"Type errors?"}
-    C -- "No" --> D["📦 JavaScript Output (.js)"]
-    C -- "Yes + noEmitOnError: true" --> E["⛔ Build fails, no output"]
-    C -- "Yes + noEmitOnError: false" --> D
-    D --> F["⚡ Node.js Runtime"]
-    F --> G["🎉 Program Execution"]
-```
-
-### Try it yourself (quick demo)
-
-**Step 1 — write TypeScript**
+### String array
 
 ```typescript
-const username: string = "Developer";
-console.log(username);
-```
-
-**Step 2 — compile**
-
-```bash
-npx tsc src/index.ts
-```
-
-**Step 3 — look at the generated JavaScript**
-
-```javascript
-const username = "Developer";
-console.log(username);
-```
-
-Notice: `: string` has **disappeared**. Types exist only during development.
-
-**Step 4 — run the JavaScript**
-
-```bash
-node src/index.js
+const skills: string[] = ["JavaScript", "Node.js", "TypeScript"];
+console.log(skills);
 ```
 
 ```text
-Developer
+[ 'JavaScript', 'Node.js', 'TypeScript' ]
 ```
 
-### 🔑 Important compiler behavior
+### Number array
 
-By default, `tsc` can **still emit JavaScript even when there are type errors**. This is controlled by `noEmitOnError`. In our project we turn it on, so a failed type check = no new output.
+```typescript
+const marks: number[] = [85, 90, 78];
+console.log(marks);
+```
 
-### 🧠 Two worlds: compile time vs runtime
+```text
+[ 85, 90, 78 ]
+```
 
-| | Compile time | Runtime |
+### Accessing items
+
+```typescript
+const skills: string[] = ["JavaScript", "Node.js", "TypeScript"];
+
+console.log(skills[0]);       // "JavaScript"  (index starts at 0!)
+console.log(skills[2]);       // "TypeScript"
+console.log(skills.length);   // 3
+```
+
+### Common array methods
+
+```typescript
+const numbers: number[] = [10, 20, 30];
+
+numbers.push(40);                    // add to end → [10, 20, 30, 40]
+numbers.pop();                       // remove from end → [10, 20, 30]
+
+const doubled: number[] = numbers.map((n) => n * 2);
+console.log(numbers); // [ 10, 20, 30 ]
+console.log(doubled); // [ 20, 40, 60 ]
+```
+
+| Method | What it does | Example | Result |
+|---|---|---|---|
+| `push(x)` | Add to the end | `[1,2].push(3)` | `[1,2,3]` |
+| `pop()` | Remove last | `[1,2,3].pop()` | `3` |
+| `includes(x)` | Contains? | `[1,2].includes(2)` | `true` |
+| `indexOf(x)` | Position of x | `["a","b"].indexOf("b")` | `1` |
+| `join(sep)` | Array → string | `["a","b"].join("-")` | `"a-b"` |
+| `map(fn)` | Transform each item | `[1,2].map(n => n*2)` | `[2,4]` |
+| `filter(fn)` | Keep matching items | `[1,2,3].filter(n => n>1)` | `[2,3]` |
+| `reduce(fn, start)` | Combine into one value | `[1,2,3].reduce((s,n)=>s+n, 0)` | `6` |
+| `slice(a, b)` | Copy a part | `[1,2,3].slice(0,2)` | `[1,2]` |
+
+### TypeScript catches wrong items
+
+```typescript
+const numbers: number[] = [10, 20, 30];
+
+// ❌ Argument of type 'string' is not assignable to parameter of type 'number'.
+numbers.push("forty");
+```
+
+### `map`, `filter`, `reduce` keep the types flowing
+
+```typescript
+const prices: number[] = [100, 250, 400];
+
+const withTax: number[] = prices.map((p) => p * 1.18);
+const expensive: number[] = prices.filter((p) => p > 200);
+const total: number = prices.reduce((sum, p) => sum + p, 0);
+```
+
+Hover over `p`, `sum`, `total` in VS Code. You'll see TypeScript already knows they're `number`.
+
+### Alternative syntax
+
+```typescript
+const usernames: Array<string> = ["jerome", "alex", "sam"];  // same as string[]
+```
+
+> [!TIP]
+> Prefer `string[]`. It's shorter and easier to read.
+
+### ⚠️ Empty arrays need a type
+
+```typescript
+const names: string[] = [];   // ✅ clear
+names.push("Arun");
+```
+
+Always annotate an empty array so TypeScript knows what it's allowed to hold.
+
+### 🚨 Gotcha: `sort()` on numbers
+
+```typescript
+const nums: number[] = [10, 9, 1];
+console.log(nums.sort());                 // [ 1, 10, 9 ]  ← sorted as TEXT!
+console.log(nums.sort((a, b) => a - b));  // [ 1, 9, 10 ]  ← correct numeric sort
+```
+
+---
+
+## 📦 5. Tuple Types
+
+A **tuple** is an array with a **fixed structure**: known length, and a specific type at each position.
+
+```typescript
+const user: [number, string] = [101, "Jerome"];
+
+console.log(user[0]);   // 101
+console.log(user[1]);   // "Jerome"
+```
+
+```mermaid
+flowchart LR
+    subgraph Tuple ["[number, string, boolean]"]
+        A["position 0: number<br/>101"] --- B["position 1: string<br/>'Jerome'"] --- C["position 2: boolean<br/>true"]
+    end
+```
+
+### Array vs Tuple
+
+| | Array `number[]` | Tuple `[number, string]` |
 |---|---|---|
-| **When** | Before the app runs | While the app runs |
-| **Who** | TypeScript compiler | Node.js |
-| **What exists** | Types, interfaces | Only JavaScript values |
-| **Catches** | Wrong types in your code | Nothing automatically |
+| Length | Any | Fixed |
+| Types | All the same | Each position has its own |
+| Use for | A list of similar things | A small group with a clear order |
+| Example | `[85, 90, 78]` | `[101, "Jerome"]` |
 
----
+### Wrong order = error
 
-## 🛠️ Prerequisites
-
-| Tool | Why | Required? |
-|---|---|:---:|
-| **Node.js** (current LTS) | Runs JavaScript | ✅ |
-| **npm** | Installs packages (comes with Node) | ✅ |
-| **VS Code** | Editor with great TS support | ⭐ Recommended |
-| **Git** | Version control | ⭐ Recommended |
-
-Verify installation:
-
-```bash
-node --version
-npm --version
-git --version
+```typescript
+// ❌ Type 'string' is not assignable to type 'number'.
+// ❌ Type 'number' is not assignable to type 'string'.
+const user: [number, string] = ["Jerome", 101];
 ```
 
-Each command should print a version number. If not, install the tool and **reopen your terminal**.
+### Named tuple elements (more readable)
 
----
-
-## 📁 Project Setup (Step by Step)
-
-### Step 1 — Create the project
-
-```bash
-mkdir typescript-day-01
-cd typescript-day-01
-npm init -y
+```typescript
+const product: [id: number, name: string, price: number] = [
+  101,
+  "Keyboard",
+  2499,
+];
 ```
 
-`npm init -y` creates `package.json` (project info + scripts).
+Hover over `product` in VS Code and you'll see the labels. They're just documentation, but very helpful.
 
-> ✅ **Checkpoint:** you should see `package.json` in the folder.
+### Optional tuple elements
 
-### Step 2 — Install TypeScript
-
-```bash
-npm install --save-dev typescript
-npm install --save-dev @types/node
+```typescript
+const a: [number, string?] = [101];
+const b: [number, string?] = [102, "Alex"];
 ```
 
-| Package | Purpose |
+### Destructuring a tuple
+
+```typescript
+const user: [number, string] = [101, "Jerome"];
+const [id, name] = user;
+
+console.log(id);    // 101
+console.log(name);  // "Jerome"
+```
+
+### Returning a tuple from a function
+
+```typescript
+function getMinMax(numbers: number[]): [min: number, max: number] {
+  return [Math.min(...numbers), Math.max(...numbers)];
+}
+
+const [min, max] = getMinMax([4, 9, 1, 7]);
+console.log(min, max); // 1 9
+```
+
+This pattern is very common. (You'll see it again with React's `useState`.)
+
+### 🚨 Gotcha: tuples can still `push`
+
+```typescript
+const point: [number, number] = [10, 20];
+point.push(30);   // ⚠️ TypeScript allows this (a known limitation)
+```
+
+Use `readonly` to prevent it:
+
+```typescript
+const safePoint: readonly [number, number] = [10, 20];
+// ❌ Property 'push' does not exist on type 'readonly [number, number]'.
+// safePoint.push(30);
+```
+
+### When to use a tuple (and when not to)
+
+| Use a tuple when... | Use an `interface` when... |
 |---|---|
-| `typescript` | The compiler (`tsc`) and tooling |
-| `@types/node` | Type definitions for Node.js APIs (`console`, `process`, `fs`...) |
+| 2–3 values, order is obvious | The data has many fields |
+| Returning a pair like `[min, max]` | It represents a business entity (User, Order) |
+| Temporary grouping | Readability matters more than brevity |
 
-They are **dev dependencies** because they're needed while developing, not when running the compiled output.
+---
 
-> ✅ **Checkpoint:** run `npx tsc --version`. You should see a version number.
+## ⚠️ 6. The `any` Type
 
-### Step 3 — Create `tsconfig.json`
+`any` turns **off** type checking for a value. It's an escape hatch.
 
-```bash
-npx tsc --init
+```typescript
+let data: any = "Hello";
+
+data = 100;       // ✅ allowed
+data = true;      // ✅ allowed
+
+data.toUpperCase();  // ✅ compiles... 💥 crashes at runtime (boolean has no toUpperCase)
 ```
 
-Replace the contents with this beginner-friendly config:
+TypeScript trusts you completely, so mistakes are found by **users**, not by the compiler.
 
-```json
-{
-  "compilerOptions": {
-    "target": "ES2022",
-    "module": "CommonJS",
-    "moduleResolution": "Node",
-    "rootDir": "./src",
-    "outDir": "./dist",
-    "strict": true,
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "skipLibCheck": true,
-    "noEmitOnError": true,
-    "types": ["node"]
-  },
-  "include": ["src/**/*.ts"],
-  "exclude": ["node_modules", "dist"]
+### Why `any` is dangerous
+
+- Removes type checks
+- Allows incompatible assignments
+- Hides bugs
+- **Spreads**: values derived from `any` also become `any`
+
+```typescript
+const x: any = "5";
+const y = x * 2;  // y is also 'any'. The bad type infects everything it touches.
+```
+
+### Where does `any` sneak in?
+
+| Source | Example |
+|---|---|
+| You write it | `let a: any;` |
+| `JSON.parse()` | `const obj = JSON.parse(text);` ← returns `any`! |
+| Missing parameter type (if strict is off) | `function f(x) {}` |
+
+> [!WARNING]
+> `JSON.parse` returns `any`. Always put an explicit annotation: `const data: unknown = JSON.parse(text);`
+
+> [!NOTE]
+> **Rule:** Use `any` only if you have a specific reason and understand the trade-off. In this course, treat it as a last resort.
+
+---
+
+## 🛡️ 7. The `unknown` Type
+
+`unknown` can hold **any value**, but TypeScript makes you **check** the type before using it.
+
+> `unknown` = "I don't know what this is **yet**, so I'll check first."
+
+```typescript
+let data: unknown = "Hello TypeScript";
+
+if (typeof data === "string") {
+  console.log(data.toUpperCase());   // ✅ inside this block, data is a string
 }
 ```
 
-### Step 4 — Create the folder structure
-
 ```text
-typescript-day-01/
-├── src/
-│   └── index.ts        ← you write this
-├── dist/               ← generated by the compiler (don't create it)
-├── node_modules/       ← generated by npm
-├── package.json
-├── package-lock.json
-└── tsconfig.json
+HELLO TYPESCRIPT
 ```
 
-### Step 5 — Add npm scripts
+### Narrowing with `typeof`
 
-Merge this into the `scripts` section of `package.json` (keep your other fields):
+Checking a type to "unlock" it is called **narrowing**.
 
-```json
-{
-  "scripts": {
-    "build": "tsc",
-    "start": "node dist/index.js",
-    "typecheck": "tsc --noEmit"
+```typescript
+function processValue(value: unknown): void {
+  if (typeof value === "string") {
+    console.log(value.trim());
+    return;
+  }
+
+  if (typeof value === "number") {
+    console.log(value.toFixed(2));
+    return;
+  }
+
+  console.log("Unsupported value type");
+}
+
+processValue("  TypeScript  ");   // TypeScript
+processValue(100);                // 100.00
+processValue(true);               // Unsupported value type
+```
+
+### The `typeof` checks you can use
+
+| Check | True for |
+|---|---|
+| `typeof x === "string"` | text |
+| `typeof x === "number"` | numbers (including `NaN`) |
+| `typeof x === "boolean"` | `true`/`false` |
+| `typeof x === "object"` | objects, arrays **and `null`** ⚠️ |
+| `typeof x === "undefined"` | `undefined` |
+| `typeof x === "function"` | functions |
+| `Array.isArray(x)` | arrays |
+| `x === null` | `null` |
+
+### 🚨 Gotcha: `typeof null === "object"`
+
+```typescript
+function isPlainObject(value: unknown): boolean {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
+console.log(isPlainObject({ a: 1 }));  // true
+console.log(isPlainObject(null));      // false
+console.log(isPlainObject([1, 2]));    // false
+```
+
+Always check `!== null` when you test for `"object"`.
+
+### Why `unknown` is useful
+
+It's perfect for data from:
+
+- External APIs
+- `JSON.parse`
+- User input
+- Third-party libraries
+- Anything you don't control
+
+> [!IMPORTANT]
+> `unknown` is a **compile-time** safety tool. It doesn't validate anything by itself. **You** write the runtime checks.
+
+---
+
+## ⚖️ `any` vs `unknown`
+
+| Feature | `any` | `unknown` |
+|---|:-:|:-:|
+| Can hold any value | ✅ | ✅ |
+| Can be assigned to any type freely | ✅ | ❌ (must narrow first) |
+| Allows property access directly | ✅ | ❌ |
+| Forces you to check first | ❌ | ✅ |
+| Type safety | 🔴 Weak | 🟢 Strong |
+| Recommended for untrusted data | ❌ | ✅ |
+
+### Side by side
+
+```typescript
+// any: compiles, crashes later
+let a: any = "Hello";
+console.log(a.nonExistingMethod());      // ✅ compiles, 💥 runtime error
+
+// unknown: compiler stops you
+let u: unknown = "Hello";
+// ❌ 'u' is of type 'unknown'.
+// console.log(u.toUpperCase());
+
+if (typeof u === "string") {
+  console.log(u.toUpperCase());          // ✅ safe
+}
+```
+
+```mermaid
+flowchart TD
+    U["unknown<br/>(safe 'anything' box: must check before use)"]
+    U --> T["string, number, boolean, arrays, objects..."]
+    T --> N["never<br/>(no possible values)"]
+    A["any<br/>(turns the checker OFF)"]
+    style U fill:#2ea44f,color:#fff
+    style A fill:#d73a49,color:#fff
+    style N fill:#6f42c1,color:#fff
+```
+
+> 🧠 **Memory trick:** `any` = "**A**ny**thing** goes, no questions asked." `unknown` = "I must **un**lock it first."
+
+---
+
+## 🔄 8. `void` Type
+
+`void` is used for functions that **don't return a meaningful value**.
+
+```typescript
+function printMessage(message: string): void {
+  console.log(message);
+}
+
+printMessage("Learning TypeScript");
+```
+
+### Compare
+
+```typescript
+function logSuccess(): void {
+  console.log("Operation completed");     // does something, returns nothing useful
+}
+
+function getNumber(): number {
+  return 100;                             // returns a value, so NOT void
+}
+```
+
+### What if you try to return a value from `void`?
+
+```typescript
+function getName(): void {
+  // ❌ Type 'string' is not assignable to type 'void'.
+  return "Arun";
+}
+```
+
+### Typical `void` functions
+
+- Logging (`console.log`)
+- Saving something and not returning a result
+- Sending a notification
+- Event handlers
+
+> [!NOTE]
+> `void` doesn't mean "does nothing". It means "the caller shouldn't expect a useful return value."
+
+---
+
+## 🚫 9. `never` Type
+
+`never` represents a value that **never happens**.
+
+### Use 1: Functions that always throw
+
+```typescript
+function throwError(message: string): never {
+  throw new Error(message);
+}
+```
+
+The function never finishes normally, so it never returns.
+
+### Use 2: Infinite loops
+
+```typescript
+function runForever(): never {
+  while (true) {
+    // keeps running
   }
 }
 ```
 
-| Script | Command | What it does |
-|---|---|---|
-| `npm run build` | `tsc` | Check types + generate JS in `dist/` |
-| `npm start` | `node dist/index.js` | Run the compiled JS |
-| `npm run typecheck` | `tsc --noEmit` | Only check types, generate nothing |
+### Use 3: Exhaustive checking (a superpower!)
 
-### Step 6 — Write your first file
-
-`src/index.ts`
+> 🔭 *Sneak peek:* `type Status = "pending" | "success" | "failed"` is a **union of literal types**. You'll study it fully on Day 5. For now, read it as "Status can only be one of these three strings."
 
 ```typescript
-const message: string = "Hello, TypeScript!";
+type Status = "pending" | "success" | "failed";
 
-console.log(message);
+function handleStatus(status: Status): string {
+  switch (status) {
+    case "pending":
+      return "Please wait";
+    case "success":
+      return "Completed";
+    case "failed":
+      return "Something went wrong";
+    default: {
+      const exhaustiveCheck: never = status;
+      return exhaustiveCheck;
+    }
+  }
+}
 ```
 
-### Step 7 — Build
+Now someone adds `"cancelled"` to `Status` but forgets to handle it. The compiler reports an error on `exhaustiveCheck`, so you find the missing case **at compile time**, not in production. 🎯
 
-```bash
-npm run build
-```
+### `void` vs `never`
 
-> ✅ **Checkpoint:** `dist/index.js` now exists. Open it and compare with your `.ts` file!
-
-### Step 8 — Run
-
-```bash
-npm start
-```
-
-```text
-Hello, TypeScript!
-```
-
-### Step 9 — Type check only
-
-```bash
-npm run typecheck
-```
-
-> 🎉 **Congratulations!** You've completed your first TypeScript workflow:
-> **write → build → run.**
-
-### 🔁 Your daily workflow
+| `void` | `never` |
+|---|---|
+| Function **finishes**, returns nothing useful | Function **never finishes normally** |
+| `console.log` wrappers | Functions that always `throw` |
+| Common | Rare (but powerful) |
 
 ```mermaid
 flowchart LR
-    A[Edit .ts file] --> B[npm run build]
-    B --> C{Errors?}
-    C -- Yes --> D[Read error, fix code]
-    D --> A
-    C -- No --> E[npm start]
+    A["Function ends normally<br/>with no useful value"] --> V["void"]
+    B["Function throws or loops forever"] --> N["never"]
+    C["Function returns a value"] --> R["number / string / ..."]
 ```
 
 ---
 
-## 🧠 Understanding tsconfig.json
+## 🎁 Bonus: `null` and `undefined`
 
-`tsconfig.json` tells TypeScript **what to compile** and **how to compile it**.
+You'll meet these constantly in real projects.
 
-| Option | Purpose | In plain words |
+```typescript
+let a: undefined = undefined;   // "no value assigned"
+let b: null = null;             // "intentionally empty"
+```
+
+With `strict: true`, **`null` and `undefined` are NOT silently allowed** in other types:
+
+```typescript
+let name: string = "Arun";
+
+// ❌ Type 'null' is not assignable to type 'string'.
+name = null;
+```
+
+This is one of the biggest bug-preventers in TypeScript, because it stops the classic *"Cannot read properties of undefined"* crash. To allow it deliberately, use a union type (`string | null`). You'll learn that on Day 5.
+
+| Value | Meaning |
+|---|---|
+| `undefined` | Not set yet / missing |
+| `null` | Deliberately empty |
+
+---
+
+## 🧠 Type Inference
+
+**Type inference** = TypeScript works out the type for you.
+
+### Example 1: string
+
+```typescript
+let username = "Jerome";     // inferred: string
+
+username = "Alex";           // ✅
+// username = 100;           // ❌ Type 'number' is not assignable to type 'string'.
+```
+
+### Example 2: number
+
+```typescript
+let score = 100;             // inferred: number
+```
+
+### Example 3: boolean
+
+```typescript
+let isActive = true;         // inferred: boolean
+```
+
+### Example 4: arrays
+
+```typescript
+let skills = ["Node.js", "TypeScript"];   // inferred: string[]
+let marks = [90, 85];                     // inferred: number[]
+```
+
+### Example 5: objects
+
+```typescript
+const student = { name: "Priya", age: 20 };
+// inferred: { name: string; age: number }
+
+student.age = 21;          // ✅
+// student.age = "21";     // ❌ Type 'string' is not assignable to type 'number'.
+// student.city;           // ❌ Property 'city' does not exist
+```
+
+### Example 6: function return type
+
+```typescript
+function add(a: number, b: number) {
+  return a + b;            // return type inferred as number
+}
+
+const result = add(10, 20);   // result: number
+```
+
+### Example 7: `const` vs `let` (important!)
+
+```typescript
+const role = "admin";   // type: "admin"  (a literal type, can never change)
+let role2 = "admin";    // type: string   (can be reassigned to any string)
+```
+
+| Declaration | Inferred type | Why |
 |---|---|---|
-| `target` | JavaScript version generated | "Which JS flavour should I output?" |
-| `module` | Module format generated | "How should files import each other?" |
-| `moduleResolution` | How imports are located | "How do I find imported files/packages?" |
-| `rootDir` | Source folder | "My `.ts` files live here" |
-| `outDir` | Output folder | "Put generated `.js` here" |
-| `strict` | Enables strict checks | "Be a strict teacher" |
-| `esModuleInterop` | Smoother CommonJS imports | "Make old and new import styles friends" |
-| `forceConsistentCasingInFileNames` | Enforces import casing | "`User.ts` ≠ `user.ts`" |
-| `skipLibCheck` | Skips checking `.d.ts` files | "Faster builds" |
-| `noEmitOnError` | No output if errors exist | "Don't hand over broken work" |
-| `types` | Which `@types` packages load automatically | "Only load Node types" |
-| `include` | Files to compile | "Compile these" |
-| `exclude` | Files to ignore | "Skip these" |
+| `let x = 5` | `number` | Can change to another number |
+| `const x = 5` | `5` | Can never change |
+| `let s = "hi"` | `string` | Can change to another string |
+| `const s = "hi"` | `"hi"` | Can never change |
+| `let ok = true` | `boolean` | |
+| `const ok = true` | `true` | |
 
-### 🔍 Deep dive: `strict: true`
+### 👀 How to *see* inferred types
 
-`strict` is an umbrella that switches on several strict checks (such as `noImplicitAny` and `strictNullChecks`).
+In VS Code, **hover** over any variable. You'll see something like:
 
-```typescript
-function greet(name: string) {
-  return `Hello, ${name}`;
-}
-
-greet("Developer"); // ✅
-greet(123);         // ❌ Argument of type 'number' is not assignable to parameter of type 'string'.
+```text
+let score: number
 ```
 
-Without a type on a parameter, strict mode complains:
+Make this a habit. It's the fastest way to learn.
+
+### ⚠️ When inference needs help
 
 ```typescript
-// ❌ Parameter 'name' implicitly has an 'any' type.
-function greet(name) {
-  return `Hello, ${name}`;
-}
+// ❌ Without a type, this is hard to understand:
+let items = [];                 // evolving array: unclear
+
+// ✅ Give it a type:
+let items2: string[] = [];
 ```
+
+```typescript
+// ❌ Parameters can't be inferred from nothing:
+function greet(name) { }        // Parameter 'name' implicitly has an 'any' type.
+
+// ✅
+function greet2(name: string) { }
+```
+
+---
+
+## 🆚 Type Annotations vs Type Inference
+
+| Annotation | Inference |
+|---|---|
+| You write the type | TypeScript decides |
+| `const age: number = 22` | `const age = 22` |
+| Clearer for contracts | Less repetition |
+
+### ✅ Annotate these
+
+| Place | Example |
+|---|---|
+| Function parameters | `function f(name: string)` |
+| Public API / exported functions' return types | `function f(): number` |
+| Important domain models | `interface User { ... }` |
+| Empty arrays/objects | `const list: string[] = []` |
+| Values from outside | `const data: unknown = ...` |
+
+### ✅ Let TypeScript infer these
+
+| Place | Example |
+|---|---|
+| Simple local variables | `const total = price * qty` |
+| Obvious literals | `let isActive = true` |
+| Callback parameters in `map`, `filter` | `nums.map(n => n * 2)` |
 
 > [!TIP]
-> Always start new projects with `"strict": true`. Turning it on later is painful.
-
-### 🔍 Deep dive: `rootDir` and `outDir`
-
-```text
-src/index.ts   ──tsc──▶   dist/index.js
-src/utils/math.ts ─────▶  dist/utils/math.js
-```
-
-The folder structure inside `src/` is mirrored inside `dist/`.
-
-### 🔍 Deep dive: `include` and `exclude`
-
-```json
-"include": ["src/**/*.ts"]
-```
-
-`**` means "any number of folders" and `*.ts` means "any TypeScript file". So this matches every `.ts` file under `src/`.
+> Don't annotate everything just to look "strongly typed". **Useful** type information beats **maximum** annotations.
 
 ---
 
-## 🔍 Type Checking in Action
+## 🗺️ Which Type Should I Use?
 
-### Example 1 — Correct assignments
-
-```typescript
-const username: string = "Jerome";
-const age: number = 21;
-const isDeveloper: boolean = true;
-
-console.log(username);
-console.log(age);
-console.log(isDeveloper);
+```mermaid
+flowchart TD
+    S["What kind of value?"] --> Q1{"Text?"}
+    Q1 -- Yes --> STR["string"]
+    Q1 -- No --> Q2{"A number<br/>you calculate with?"}
+    Q2 -- Yes --> NUM["number"]
+    Q2 -- No --> Q3{"Only true / false?"}
+    Q3 -- Yes --> BOOL["boolean"]
+    Q3 -- No --> Q4{"A list of<br/>similar items?"}
+    Q4 -- Yes --> ARR["type[]"]
+    Q4 -- No --> Q5{"A fixed small group<br/>in a fixed order?"}
+    Q5 -- Yes --> TUP["tuple"]
+    Q5 -- No --> Q6{"Don't know yet<br/>(external data)?"}
+    Q6 -- Yes --> UNK["unknown + narrowing"]
+    Q6 -- No --> OBJ["interface / object type"]
 ```
-
-```text
-Jerome
-21
-true
-```
-
-### Example 2 — Incorrect assignment
-
-```typescript
-const age: number = "twenty-one";
-```
-
-```text
-Type 'string' is not assignable to type 'number'.
-```
-
-Fix:
-
-```typescript
-const age: number = 21;
-```
-
-### Example 3 — Type inference
-
-TypeScript can figure out types by itself:
-
-```typescript
-let score = 100;     // inferred as number
-
-score = 150;         // ✅
-score = "high";      // ❌ Type 'string' is not assignable to type 'number'.
-```
-
-Hover over `score` in VS Code and you'll see `let score: number`.
-
-| Style | Code | When to use |
-|---|---|---|
-| **Annotation** (you write the type) | `let score: number = 100;` | Function parameters, return types, public contracts |
-| **Inference** (TS figures it out) | `let score = 100;` | Simple local variables where the value makes it obvious |
-
-### Example 4 — `const` vs `let` inference
-
-```typescript
-let city = "Chennai";     // type: string
-const country = "India";  // type: "India" (a literal type!)
-```
-
-`const` can never change, so TypeScript infers the most exact type. You'll study literal types in the coming days.
-
-### Example 5 — Function with return type
-
-```typescript
-function calculateTotal(price: number, quantity: number): number {
-  return price * quantity;
-}
-
-const total = calculateTotal(250, 3);
-console.log(total); // 750
-```
-
-### Example 6 — Wrong return type
-
-```typescript
-function getAge(): number {
-  return "twenty"; // ❌ Type 'string' is not assignable to type 'number'.
-}
-```
-
-### Example 7 — Objects
-
-```typescript
-const student: { name: string; marks: number } = {
-  name: "Priya",
-  marks: 92,
-};
-
-console.log(student.name);   // ✅
-console.log(student.grade);  // ❌ Property 'grade' does not exist on type '{ name: string; marks: number; }'.
-```
-
-TypeScript catches **typos in property names** too. 🎯
 
 ---
 
 ## 🌍 Real-World Backend Example
 
-You're building an e-commerce backend and need to calculate an order total.
+A user profile model:
 
 ```typescript
-interface Order {
-  productName: string;
-  price: number;
-  quantity: number;
+interface UserProfile {
+  id: number;
+  username: string;
+  email: string;
+  isActive: boolean;
+  skills: string[];
 }
 
-function calculateOrderTotal(order: Order): number {
-  return order.price * order.quantity;
-}
-
-const order: Order = {
-  productName: "Mechanical Keyboard",
-  price: 2500,
-  quantity: 2,
+const user: UserProfile = {
+  id: 101,
+  username: "jerome",
+  email: "jerome@example.com",
+  isActive: true,
+  skills: ["Node.js", "TypeScript", "Express.js"],
 };
 
-console.log(calculateOrderTotal(order)); // 5000
-```
-
-### What did we learn?
-
-| Code | Meaning |
-|---|---|
-| `interface Order` | Describes the **shape** of an order |
-| `price: number` | Price must be a number |
-| `calculateOrderTotal(order: Order)` | Accepts only objects matching `Order` |
-| `: number` | Returns a number |
-
-If a developer passes `quantity: "two"` in typed code, the compiler warns immediately.
-
-### 🚨 Critical backend limitation
-
-`interface Order` **disappears after compilation**. It cannot check JSON coming from a real client:
-
-```json
-{
-  "productName": "Mechanical Keyboard",
-  "price": 2500,
-  "quantity": "two"
+function displayUser(profile: UserProfile): void {
+  console.log(`User: ${profile.username}`);
+  console.log(`Email: ${profile.email}`);
+  console.log(`Active: ${profile.isActive}`);
+  console.log(`Skills: ${profile.skills.join(", ")}`);
 }
+
+displayUser(user);
 ```
 
-TypeScript would never know. Always **validate external data at runtime** (a validation library or manual checks) before trusting it.
+```text
+User: jerome
+Email: jerome@example.com
+Active: true
+Skills: Node.js, TypeScript, Express.js
+```
+
+### What did we apply?
+
+| Code | Type used |
+|---|---|
+| `id` | `number` |
+| `username`, `email` | `string` |
+| `isActive` | `boolean` |
+| `skills` | `string[]` |
+| `displayUser` return | `void` |
+| The whole user | `interface` |
+
+### 🔐 Handling an API response safely
+
+```typescript
+function readUsername(responseBody: unknown): string {
+  if (
+    typeof responseBody === "object" &&
+    responseBody !== null &&
+    "username" in responseBody
+  ) {
+    const username = (responseBody as { username: unknown }).username;
+
+    if (typeof username === "string") {
+      return username;
+    }
+  }
+
+  return "Guest";
+}
+
+console.log(readUsername({ username: "jerome" })); // jerome
+console.log(readUsername({ username: 123 }));      // Guest
+console.log(readUsername(null));                   // Guest
+```
 
 ```mermaid
 flowchart LR
-    C[📱 Client sends JSON] --> V{Runtime validation}
-    V -- Invalid --> R[❌ 400 Bad Request]
-    V -- Valid --> T[✅ Use as typed Order]
-    T --> S[Service logic]
+    A["📥 External data<br/>(unknown)"] --> B{"Is it an object?"}
+    B -- No --> G["Guest"]
+    B -- Yes --> C{"Has username?"}
+    C -- No --> G
+    C -- Yes --> D{"username is string?"}
+    D -- No --> G
+    D -- Yes --> E["✅ Use username"]
 ```
+
+> [!WARNING]
+> **Production note:** An interface is not a database schema and doesn't validate incoming requests. Validate external data separately, enforce database constraints, and implement authentication and authorization.
 
 ---
 
@@ -669,364 +1213,455 @@ flowchart LR
 
 ### Mistakes
 
-| # | Mistake | Why it's a problem | Fix |
-|:-:|---|---|---|
-| 1 | Running `node src/index.ts` | Standard Node.js flow expects JavaScript | `npm run build` then `npm start` |
-| 2 | Thinking types exist at runtime | They're erased during compilation | Add runtime validation for external data |
-| 3 | Using `any` everywhere | Turns off type checking for that value | Use proper types; learn `unknown` on Day 2 |
-| 4 | Ignoring compiler errors | Bugs slip through | Read the message, fix the cause |
-| 5 | Treating types as tests | Types don't prove logic is correct | Write tests |
-| 6 | Forgetting to rebuild | `npm start` runs old `dist/` code | Run `npm run build` first |
+| # | Mistake | Better approach |
+|:-:|---|---|
+| 1 | `let data: any = ...` for unknown data | `let data: unknown = ...` and narrow |
+| 2 | Thinking `let age = 22` accepts any value later | The type is fixed as `number` |
+| 3 | Using a tuple when an interface is clearer | Use `interface` for entities |
+| 4 | Using `void` when the function returns a value | Declare the real return type |
+| 5 | Trusting `JSON.parse` output | Annotate as `unknown`, then validate |
+| 6 | Storing phone/pincode as `number` | Use `string` |
+| 7 | Forgetting `toFixed()` returns a string | Wrap with `Number(...)` if needed |
+| 8 | Not annotating empty arrays | `const list: string[] = []` |
+| 9 | Using `typeof x === "object"` without a `null` check | Add `x !== null` |
+| 10 | Sorting numbers without a compare function | `.sort((a, b) => a - b)` |
 
-> [!NOTE]
-> Some newer Node.js versions can run `.ts` files directly using *type stripping*. That is **not** the same as full compilation and type checking, so in this course we use the build workflow.
+### 📋 Errors you'll see on Day 2
 
-### 🔤 How to read a TypeScript error
-
-```text
-src/index.ts:5:7 - error TS2322: Type 'string' is not assignable to type 'number'.
-
-5 const age: number = "twenty-one";
-        ~~~
-```
-
-| Part | Meaning |
-|---|---|
-| `src/index.ts` | File |
-| `5:7` | Line 5, column 7 |
-| `TS2322` | Error code (Google it!) |
-| Message | What went wrong |
-| `~~~` | Exact spot |
-
-### 📋 Errors you'll see often
-
-| Error message (shortened) | Usually means |
-|---|---|
-| `Type 'X' is not assignable to type 'Y'` | You gave the wrong kind of value |
-| `Argument of type 'X' is not assignable to parameter of type 'Y'` | Wrong value passed to a function |
-| `Expected 2 arguments, but got 1` | Missing function argument |
-| `Property 'x' does not exist on type 'Y'` | Typo or property not defined |
-| `Cannot assign to 'x' because it is a constant` | You reassigned a `const` |
-| `Parameter 'x' implicitly has an 'any' type` | Missing type annotation (strict mode) |
-| `Cannot find name 'console'` | `@types/node` is missing or not configured |
+| Error message (shortened) | Meaning | Fix |
+|---|---|---|
+| `Type 'string' is not assignable to type 'number'` | Wrong value type | Use the right type |
+| `Argument of type 'string' is not assignable to parameter of type 'number'` | Wrong argument or `push` | Pass the right type |
+| `'x' is of type 'unknown'` | Using `unknown` without narrowing | Add a `typeof` check |
+| `Type 'string' is not assignable to type 'void'` | Returning a value from a `void` function | Change the return type |
+| `A function returning 'never' cannot have a reachable end point` | `never` function can finish | Throw or loop forever |
+| `Type 'null' is not assignable to type 'string'` | `strictNullChecks` is protecting you | Handle `null` explicitly |
+| `Source has 2 element(s) but target requires 3` | Tuple has the wrong length | Match the tuple length |
+| `Property 'x' does not exist on type 'Y'` | Typo or missing property | Check the name/type |
 
 ---
 
 ## 🧪 Hands-On Tasks
 
 > [!IMPORTANT]
-> Create a file for each task in `src/` (for example `src/task1.ts`) and run it with `npm run build && node dist/task1.js`.
-> Try on your own first. Solutions are hidden at the end of each level.
+> - Create one file per task: `src/task1_1.ts`, `src/task1_2.ts`...
+> - Put `export {};` at the top of each file.
+> - Run: `npm run build && node dist/task1_1.js`
+> - Try first, then check the solution.
 
-### 🟢 Level 1 — Warm-up (15–20 min)
+### 🟢 Level 1: Warm-up (20 min)
 
 #### Task 1.1 — Personal profile
 
-Create variables for your **name**, **age**, **current learning topic** and **whether you're learning TypeScript**. Give each an appropriate type and print them all.
+Create variables for **name**, **age**, **email**, **is employed** and **programming skills**. Choose suitable types and print everything.
 
-#### Task 1.2 — Multiply
+#### Task 1.2 — Product inventory
 
-Write `multiplyNumbers()` that accepts two numbers and returns their product, with an explicit return type. Test it with **at least 3 inputs**.
+1. Create `products: string[]` and `prices: number[]`.
+2. Add one new product and one new price.
+3. Print both arrays.
+4. Intentionally push a wrong type into each array and read the error.
 
-#### Task 1.3 — Product details
+#### Task 1.3 — User tuple
 
-Create an object for a product with `id`, `name`, `price`, `inStock`. Give each property a type and print the details.
+Create a tuple for `[User ID, Username, Is Active]` using `number`, `string`, `boolean`. Print each element using its index.
 
-#### Task 1.4 — Find the error
+#### Task 1.4 — Void function
 
-```typescript
-const username: string = "Developer";
-let age: number = 22;
+Write `logMessage(message: string)` that prints the message and returns nothing meaningful.
 
-console.log(username);
-console.log(age);
+#### Task 1.5 — Never function
 
-age = "twenty-two";
-```
-
-1. What error does TypeScript report?
-2. Why does it happen?
-3. How do you fix it?
-
-#### Task 1.5 — Inference
-
-```typescript
-let total = 100;
-
-total = 200;
-total = "two hundred";
-```
-
-1. What type is inferred for `total`?
-2. Which assignment fails?
-3. How could a value be *either* number or string? (You'll learn this on Day 5; just make a guess!)
+Write `fail(message: string)` that throws an `Error`. Its return type must be `never`.
 
 <details>
-<summary>✅ Click for Level 1 solutions</summary>
+<summary>✅ Level 1 solutions</summary>
 
 **1.1**
 
 ```typescript
-const fullName: string = "Jerome";
-let age: number = 21;
-const currentTopic: string = "TypeScript";
-const isLearningTypeScript: boolean = true;
+export {};
 
-console.log(fullName, age, currentTopic, isLearningTypeScript);
+const fullName: string = "Jerome";
+const age: number = 22;
+const email: string = "jerome@example.com";
+const isEmployed: boolean = false;
+const skills: string[] = ["JavaScript", "TypeScript", "Node.js"];
+
+console.log(fullName, age, email, isEmployed, skills);
 ```
 
 **1.2**
 
 ```typescript
-function multiplyNumbers(a: number, b: number): number {
-  return a * b;
-}
+export {};
 
-console.log(multiplyNumbers(2, 3));   // 6
-console.log(multiplyNumbers(10, 5));  // 50
-console.log(multiplyNumbers(7, 0));   // 0
+const products: string[] = ["Keyboard", "Mouse"];
+const prices: number[] = [2500, 600];
+
+products.push("Monitor");
+prices.push(9000);
+
+console.log(products); // [ 'Keyboard', 'Mouse', 'Monitor' ]
+console.log(prices);   // [ 2500, 600, 9000 ]
+
+// ❌ Argument of type 'number' is not assignable to parameter of type 'string'.
+// products.push(123);
+// ❌ Argument of type 'string' is not assignable to parameter of type 'number'.
+// prices.push("free");
 ```
 
 **1.3**
 
 ```typescript
-const product: { id: number; name: string; price: number; inStock: boolean } = {
-  id: 1,
-  name: "Wireless Mouse",
-  price: 799,
-  inStock: true,
-};
+export {};
 
-console.log(product);
+const user: [number, string, boolean] = [101, "Jerome", true];
+
+console.log(user[0]); // 101
+console.log(user[1]); // Jerome
+console.log(user[2]); // true
 ```
 
 **1.4**
 
-1. `Type 'string' is not assignable to type 'number'.`
-2. `age` was declared as `number`, but `"twenty-two"` is a string.
-3. Assign a number: `age = 23;`
+```typescript
+export {};
 
-> Note: if `age` were declared with `const`, TypeScript would report a different error: *"Cannot assign to 'age' because it is a constant."* That's why this version uses `let`.
+function logMessage(message: string): void {
+  console.log(message);
+}
+
+logMessage("Hello TypeScript");
+```
 
 **1.5**
 
-1. `number`
-2. `total = "two hundred";`
-3. A *union type*: `number | string` (Day 5).
+```typescript
+export {};
+
+function fail(message: string): never {
+  throw new Error(message);
+}
+
+fail("Something went wrong");
+```
 
 </details>
 
 ---
 
-### 🟡 Level 2 — Practice (20–25 min)
+### 🟡 Level 2: Practice (30 min)
 
-#### Task 2.1 — Temperature converter
+#### Task 2.1 — Predict the inference 🔍
 
-Write `celsiusToFahrenheit(celsius)` using `F = C × 9/5 + 32`. Test with `0`, `37`, `100`.
+For each line, write down the type TypeScript infers. Then **hover in VS Code** to verify.
 
-#### Task 2.2 — Full name
-
-Write `getFullName(first, last)` that returns `"First Last"`.
-
-#### Task 2.3 — Adult check
-
-Write `isAdult(age)` that returns `true` if age is 18 or more. The return type must be `boolean`.
-
-#### Task 2.4 — Average marks
-
-Write `calculateAverage(marks)` where `marks` is an array of numbers (`number[]`). Return the average.
-
-> 💡 *Sneak peek:* `number[]` means "an array of numbers". Arrays get full coverage on Day 2.
-
-#### Task 2.5 — Student object
-
-Create an `interface Student` with `name`, `rollNo`, `marks` (`number[]`). Write `getStudentSummary(student)` that returns a string like:
-
-```text
-Priya (Roll 12) - Average: 88.33
+```typescript
+let a = 10;
+const b = 10;
+let c = "hi";
+const d = true;
+let e = [1, 2, 3];
+const f = { name: "Arun", age: 5 };
+const g = (x: number) => x > 5;
 ```
 
-Hint: use `.toFixed(2)`.
+#### Task 2.2 — Safe formatter with `unknown`
+
+Write `formatValue(value: unknown): string`:
+
+| Input | Output |
+|---|---|
+| a string | uppercase version |
+| a number | two decimal places (like `"100.00"`) |
+| a boolean | `"Yes"` or `"No"` |
+| an array | `"Array with N items"` |
+| anything else | `"Unsupported type"` |
+
+Test with: `"hello"`, `42`, `true`, `[1, 2, 3]`, `null`, `undefined`.
+
+#### Task 2.3 — Min, max, average with a tuple
+
+Write `getStats(marks: number[])` that returns a tuple `[min, max, average]`. Use named tuple elements and destructure the result.
+
+#### Task 2.4 — Array toolbox
+
+Given `const prices: number[] = [120, 450, 80, 999, 300];` write:
+
+1. `getTotal(prices): number`
+2. `getExpensive(prices, limit): number[]` (items above the limit)
+3. `addTax(prices, rate): number[]` (rate in %)
+
+#### Task 2.5 — Swap
+
+Write `swap(pair: [number, string]): [string, number]` that reverses the tuple. `swap([1, "one"])` → `["one", 1]`.
 
 <details>
-<summary>✅ Click for Level 2 solutions</summary>
+<summary>✅ Level 2 solutions</summary>
 
 **2.1**
 
-```typescript
-function celsiusToFahrenheit(celsius: number): number {
-  return (celsius * 9) / 5 + 32;
-}
-
-console.log(celsiusToFahrenheit(0));   // 32
-console.log(celsiusToFahrenheit(37));  // 98.6
-console.log(celsiusToFahrenheit(100)); // 212
-```
+| Line | Inferred type |
+|---|---|
+| `let a = 10` | `number` |
+| `const b = 10` | `10` (literal) |
+| `let c = "hi"` | `string` |
+| `const d = true` | `true` (literal) |
+| `let e = [1, 2, 3]` | `number[]` |
+| `const f = {...}` | `{ name: string; age: number }` |
+| `const g = ...` | `(x: number) => boolean` |
 
 **2.2**
 
 ```typescript
-function getFullName(first: string, last: string): string {
-  return `${first} ${last}`;
+export {};
+
+function formatValue(value: unknown): string {
+  if (typeof value === "string") {
+    return value.toUpperCase();
+  }
+  if (typeof value === "number") {
+    return value.toFixed(2);
+  }
+  if (typeof value === "boolean") {
+    return value ? "Yes" : "No";
+  }
+  if (Array.isArray(value)) {
+    return `Array with ${value.length} items`;
+  }
+  return "Unsupported type";
 }
 
-console.log(getFullName("Jerome", "Kumar"));
+console.log(formatValue("hello"));    // HELLO
+console.log(formatValue(42));         // 42.00
+console.log(formatValue(true));       // Yes
+console.log(formatValue([1, 2, 3]));  // Array with 3 items
+console.log(formatValue(null));       // Unsupported type
+console.log(formatValue(undefined));  // Unsupported type
 ```
 
 **2.3**
 
 ```typescript
-function isAdult(age: number): boolean {
-  return age >= 18;
+export {};
+
+function getStats(
+  marks: number[]
+): [min: number, max: number, average: number] {
+  const min = Math.min(...marks);
+  const max = Math.max(...marks);
+  const average = marks.reduce((sum, m) => sum + m, 0) / marks.length;
+  return [min, max, average];
 }
 
-console.log(isAdult(17)); // false
-console.log(isAdult(18)); // true
+const [min, max, average] = getStats([70, 85, 90, 100]);
+console.log(min, max, average); // 70 100 86.25
 ```
 
 **2.4**
 
 ```typescript
-function calculateAverage(marks: number[]): number {
-  let sum = 0;
-  for (const mark of marks) {
-    sum += mark;
-  }
-  return sum / marks.length;
+export {};
+
+const prices: number[] = [120, 450, 80, 999, 300];
+
+function getTotal(items: number[]): number {
+  return items.reduce((sum, p) => sum + p, 0);
 }
 
-console.log(calculateAverage([90, 80, 100])); // 90
+function getExpensive(items: number[], limit: number): number[] {
+  return items.filter((p) => p > limit);
+}
+
+function addTax(items: number[], rate: number): number[] {
+  return items.map((p) => p + (p * rate) / 100);
+}
+
+console.log(getTotal(prices));            // 1949
+console.log(getExpensive(prices, 300));   // [ 450, 999 ]
+console.log(addTax(prices, 18));          // values like 141.6, 531, 94.4, 1178.82, 354
 ```
 
-> Edge case to think about: what happens with an empty array? (`0 / 0` is `NaN`.) Types don't protect you from this. Logic and tests do.
+> Floating-point values may print with tiny extra decimals on some inputs. That's the number gotcha you learned earlier.
 
 **2.5**
 
 ```typescript
-interface Student {
-  name: string;
-  rollNo: number;
-  marks: number[];
+export {};
+
+function swap(pair: [number, string]): [string, number] {
+  const [num, text] = pair;
+  return [text, num];
 }
 
-function getStudentSummary(student: Student): string {
-  let sum = 0;
-  for (const mark of student.marks) {
-    sum += mark;
-  }
-  const average = sum / student.marks.length;
-  return `${student.name} (Roll ${student.rollNo}) - Average: ${average.toFixed(2)}`;
-}
-
-console.log(
-  getStudentSummary({ name: "Priya", rollNo: 12, marks: [90, 85, 90] })
-);
-// Priya (Roll 12) - Average: 88.33
+console.log(swap([1, "one"])); // [ 'one', 1 ]
 ```
 
 </details>
 
 ---
 
-### 🔴 Level 3 — Challenge (25–30 min)
+### 🔴 Level 3: Challenge (40 min)
 
-#### Task 3.1 — Discount calculator
+#### Task 3.1 — Safe JSON reader
 
-Write `applyDiscount(price, percent)` that returns the price after discount. Example: `applyDiscount(1000, 20)` → `800`.
+1. Write `parseJsonSafely(text: string): unknown` that returns the parsed value, or `null` if the text is invalid JSON.
+2. Write `getUsername(jsonText: string): string` that returns the `username` **only if** it exists and is a string. Otherwise return `"Guest"`.
 
-#### Task 3.2 — Order total with `interface`
+Test with:
 
-Create `interface OrderItem { name: string; price: number; quantity: number }` and write `getOrderTotal(items)` that returns the total of all items.
+```text
+'{"username":"jerome"}'     → jerome
+'{"username":123}'          → Guest
+'not json'                  → Guest
+'null'                      → Guest
+```
 
-#### Task 3.3 — Prove types vanish ✨
+#### Task 3.2 — Exhaustive `never` check
 
-1. Write a typed function in `src/index.ts`.
-2. Run `npm run build`.
-3. Open `dist/index.js`. List **three things** that disappeared.
+1. Create `type Status = "pending" | "success" | "failed"` and a `handleStatus` function with a `never` default check (see the `never` section).
+2. Add `"cancelled"` to `Status`. What error do you get?
+3. Handle the new case and make the error disappear.
 
-#### Task 3.4 — `noEmitOnError` experiment
+#### Task 3.3 — Tuple → Interface refactor
 
-1. Add an intentional type error.
-2. Run `npm run build`. Does `dist/index.js` update?
-3. Set `"noEmitOnError": false`, repeat. What changes?
-4. Set it back to `true`.
+You're given this tuple-based code:
 
-#### Task 3.5 — Runtime validation (stretch 🌟)
+```typescript
+const product: [number, string, number] = [101, "Keyboard", 2499];
+```
 
-Write `isValidOrder(data: unknown): boolean` that returns `true` only if `data` is an object with `productName` (string), `price` (number) and `quantity` (number). Test it with the "bad JSON" from the backend example.
+1. List **two problems** with this style for a real project.
+2. Refactor it to an `interface Product`.
+3. Write `describeProduct(product: Product): string` returning `"#101 Keyboard - ₹2499"`.
 
-> 💡 `unknown` means "I don't know the type yet, so I must check before using it". It's covered in detail on Day 2.
+#### Task 3.4 — Catch the `any` leak 🕵️
+
+1. Write: `const obj = JSON.parse('{"x": 1}');`
+2. Hover over `obj`. What type is it?
+3. Write `obj.anything.goes.here;`. Does TypeScript complain?
+4. Change to `const obj: unknown = JSON.parse(...)`. What happens to `obj.x`?
+
+#### Task 3.5 — Grade book (arrays + tuples + functions)
+
+Write `getGradeBook(names: string[], marks: number[]): [string, number][]` that pairs each name with its mark. Then print each pair like `Priya: 92`.
 
 <details>
-<summary>✅ Click for Level 3 solutions</summary>
+<summary>✅ Level 3 solutions</summary>
 
 **3.1**
 
 ```typescript
-function applyDiscount(price: number, percent: number): number {
-  return price - (price * percent) / 100;
+export {};
+
+function parseJsonSafely(text: string): unknown {
+  try {
+    return JSON.parse(text);
+  } catch {
+    return null;
+  }
 }
 
-console.log(applyDiscount(1000, 20)); // 800
+function getUsername(jsonText: string): string {
+  const parsed = parseJsonSafely(jsonText);
+
+  if (typeof parsed === "object" && parsed !== null && "username" in parsed) {
+    const username = (parsed as { username: unknown }).username;
+    if (typeof username === "string") {
+      return username;
+    }
+  }
+
+  return "Guest";
+}
+
+console.log(getUsername('{"username":"jerome"}')); // jerome
+console.log(getUsername('{"username":123}'));      // Guest
+console.log(getUsername("not json"));              // Guest
+console.log(getUsername("null"));                  // Guest
 ```
 
 **3.2**
 
-```typescript
-interface OrderItem {
-  name: string;
-  price: number;
-  quantity: number;
-}
+After adding `"cancelled"`, the compiler reports something like:
 
-function getOrderTotal(items: OrderItem[]): number {
-  let total = 0;
-  for (const item of items) {
-    total += item.price * item.quantity;
-  }
-  return total;
-}
-
-console.log(
-  getOrderTotal([
-    { name: "Pen", price: 10, quantity: 5 },
-    { name: "Notebook", price: 50, quantity: 2 },
-  ])
-); // 150
+```text
+Type '"cancelled"' is not assignable to type 'never'.
 ```
 
-**3.3** Things that disappear: the type annotations (`: number`), the `interface` declarations entirely, and any type-only syntax.
+Fix:
+
+```typescript
+type Status = "pending" | "success" | "failed" | "cancelled";
+
+function handleStatus(status: Status): string {
+  switch (status) {
+    case "pending":
+      return "Please wait";
+    case "success":
+      return "Completed";
+    case "failed":
+      return "Something went wrong";
+    case "cancelled":
+      return "Order cancelled";
+    default: {
+      const exhaustiveCheck: never = status;
+      return exhaustiveCheck;
+    }
+  }
+}
+```
+
+**3.3**
+
+Problems: (1) you must remember what each position means (`0` = id? `2` = price?); (2) adding a field changes positions and can silently break code.
+
+```typescript
+export {};
+
+interface Product {
+  id: number;
+  name: string;
+  price: number;
+}
+
+function describeProduct(product: Product): string {
+  return `#${product.id} ${product.name} - ₹${product.price}`;
+}
+
+console.log(describeProduct({ id: 101, name: "Keyboard", price: 2499 }));
+// #101 Keyboard - ₹2499
+```
 
 **3.4**
-- With `noEmitOnError: true`: the build fails and `dist/index.js` is **not** updated.
-- With `noEmitOnError: false`: errors are still reported, but JavaScript is still emitted.
+
+2. `any`
+3. No complaint. That's the danger.
+4. With `unknown`, `obj.x` is an error: `'obj' is of type 'unknown'.` You must narrow first.
 
 **3.5**
 
 ```typescript
-function isValidOrder(data: unknown): boolean {
-  if (typeof data !== "object" || data === null) {
-    return false;
+export {};
+
+function getGradeBook(names: string[], marks: number[]): [string, number][] {
+  const result: [string, number][] = [];
+  for (let i = 0; i < names.length; i++) {
+    result.push([names[i], marks[i]]);
   }
-
-  const obj = data as Record<string, unknown>;
-
-  return (
-    typeof obj.productName === "string" &&
-    typeof obj.price === "number" &&
-    typeof obj.quantity === "number"
-  );
+  return result;
 }
 
-console.log(
-  isValidOrder({ productName: "Keyboard", price: 2500, quantity: "two" })
-); // false
-console.log(
-  isValidOrder({ productName: "Keyboard", price: 2500, quantity: 2 })
-); // true
+const book = getGradeBook(["Priya", "Arun"], [92, 75]);
+for (const [name, mark] of book) {
+  console.log(`${name}: ${mark}`);
+}
+// Priya: 92
+// Arun: 75
 ```
 
-This is exactly the kind of check TypeScript cannot do for you at runtime.
+> Edge case to think about: what if `names` and `marks` have different lengths? Types can't catch that. Your logic must.
 
 </details>
 
@@ -1034,211 +1669,282 @@ This is exactly the kind of check TypeScript cannot do for you at runtime.
 
 ## 🐞 Debugging Challenges
 
-Each snippet has a bug. Predict the error **before** running it.
+Predict the error **before** compiling.
 
 #### 🐛 Challenge 1
-
 ```typescript
-let count: number = "5";
-console.log(count + 1);
+const scores: number[] = [90, "85", 70];
 ```
 
 #### 🐛 Challenge 2
-
 ```typescript
-function add(a: number, b: number): number {
-  return a + b;
-}
-
-console.log(add(1));
+const user: [number, string] = ["Arun", 1];
 ```
 
 #### 🐛 Challenge 3
-
 ```typescript
-const user = { name: "Arun", city: "Chennai" };
-console.log(user.age);
+function showLength(value: unknown): void {
+  console.log(value.length);
+}
 ```
 
 #### 🐛 Challenge 4
-
 ```typescript
-function getTotal(price: number, qty: number): number {
-  console.log(price * qty);
+function getName(): void {
+  return "Arun";
 }
 ```
 
 #### 🐛 Challenge 5
-
 ```typescript
-function greet(name) {
-  return "Hello " + name;
+function fail(message: string): never {
+  console.log(message);
 }
 ```
 
+#### 🐛 Challenge 6
+```typescript
+let isActive = true;
+isActive = "yes";
+```
+
+#### 🐛 Challenge 7
+```typescript
+let ids: number[] = [1, 2, 3];
+ids.push("4");
+```
+
 <details>
-<summary>✅ Click for answers</summary>
+<summary>✅ Answers</summary>
 
 | # | Error | Fix |
 |:-:|---|---|
-| 1 | `Type 'string' is not assignable to type 'number'.` | `let count: number = 5;` |
-| 2 | `Expected 2 arguments, but got 1.` | `add(1, 2)` |
-| 3 | `Property 'age' does not exist on type '{ name: string; city: string; }'.` | Add `age` to the object or remove the access |
-| 4 | `A function whose declared type is neither 'undefined', 'void', nor 'any' must return a value.` | `return price * qty;` |
-| 5 | `Parameter 'name' implicitly has an 'any' type.` (with `strict: true`) | `function greet(name: string)` |
+| 1 | `Type 'string' is not assignable to type 'number'.` | Use `85` instead of `"85"` |
+| 2 | Two errors: `Type 'string' is not assignable to type 'number'` and `Type 'number' is not assignable to type 'string'` | `[1, "Arun"]` |
+| 3 | `'value' is of type 'unknown'.` | `if (typeof value === "string") { ... }` |
+| 4 | `Type 'string' is not assignable to type 'void'.` | Change the return type to `string` |
+| 5 | `A function returning 'never' cannot have a reachable end point.` | `throw new Error(message);` |
+| 6 | `Type 'string' is not assignable to type 'boolean'.` (inferred type is `boolean`) | `isActive = false;` |
+| 7 | `Argument of type 'string' is not assignable to parameter of type 'number'.` | `ids.push(4);` |
 
 </details>
 
 ---
 
-## 🏗️ Mini Project: Shop Billing Calculator
+## 🏗️ Mini Project: Student Management
 
-Build a small billing program for a shop. This ties together everything from Day 1.
+Build a type-safe student profile system. This uses **everything** from Day 2.
 
 ### 📋 Requirements
 
-Create `src/billing.ts` with:
+Create `src/students.ts`:
 
-1. `interface Product { id: number; name: string; price: number }`
-2. `interface CartItem { product: Product; quantity: number }`
-3. `calculateSubtotal(cart: CartItem[]): number`
-4. `applyDiscount(amount: number, percent: number): number`
-5. `calculateGST(amount: number, rate: number): number` (use 18%)
-6. `formatCurrency(amount: number): string` that formats as Indian Rupees
-7. Print a bill like this:
+1. `interface Student` with: `id` (number), `name` (string), `age` (number), `course` (string), `isActive` (boolean), `skills` (string[]), `marks` (number[]).
+2. `displayStudent(student: Student): void`
+3. `countSkills(student: Student): number`
+4. `calculateAverage(marks: number[]): number`
+5. `getGrade(average: number): string`
+   - 90 or more → `"A"`
+   - 75 or more → `"B"`
+   - 60 or more → `"C"`
+   - otherwise → `"D"`
+6. `printTopStudent(students: Student[]): void`
+7. Create an array of at least 3 students and print everything, plus how many are active.
+
+### 🎯 Expected output (sample)
 
 ```text
-=========== SHOP BILL ===========
-Keyboard x 1      ₹2,500.00
-Mouse x 2         ₹1,200.00
----------------------------------
-Subtotal:         ₹3,700.00
-Discount (10%):   -₹370.00
-After discount:   ₹3,330.00
-GST (18%):        ₹599.40
----------------------------------
-TOTAL:            ₹3,929.40
-=================================
+------------------------------
+Student #1: Priya
+Age: 20 | Course: CSE | Active: Yes
+Skills (2): Node.js, TypeScript
+Average: 91.67 | Grade: A
+------------------------------
+Student #2: Arun
+Age: 21 | Course: IT | Active: Yes
+Skills (3): HTML, CSS, JavaScript
+Average: 71.67 | Grade: C
+------------------------------
+Student #3: Meena
+Age: 22 | Course: ECE | Active: No
+Skills (1): C
+Average: 57.67 | Grade: D
+------------------------------
+Active students: 2
+🏆 Top student: Priya (91.67)
 ```
-
-> Spacing doesn't need to be perfect. Focus on getting the numbers right.
 
 ### 🧱 Starter code
 
 ```typescript
-interface Product {
+export {};
+
+interface Student {
   id: number;
   name: string;
-  price: number;
+  age: number;
+  course: string;
+  isActive: boolean;
+  skills: string[];
+  marks: number[];
 }
 
-interface CartItem {
-  product: Product;
-  quantity: number;
-}
-
-function calculateSubtotal(cart: CartItem[]): number {
+function calculateAverage(marks: number[]): number {
   // TODO
   return 0;
 }
 
-function applyDiscount(amount: number, percent: number): number {
-  // TODO
-  return 0;
-}
-
-function calculateGST(amount: number, rate: number): number {
-  // TODO
-  return 0;
-}
-
-function formatCurrency(amount: number): string {
+function getGrade(average: number): string {
   // TODO
   return "";
 }
 
-const cart: CartItem[] = [
-  { product: { id: 1, name: "Keyboard", price: 2500 }, quantity: 1 },
-  { product: { id: 2, name: "Mouse", price: 600 }, quantity: 2 },
+function countSkills(student: Student): number {
+  // TODO
+  return 0;
+}
+
+function displayStudent(student: Student): void {
+  // TODO
+}
+
+function printTopStudent(students: Student[]): void {
+  // TODO
+}
+
+const students: Student[] = [
+  {
+    id: 1,
+    name: "Priya",
+    age: 20,
+    course: "CSE",
+    isActive: true,
+    skills: ["Node.js", "TypeScript"],
+    marks: [92, 88, 95],
+  },
+  // TODO: add Arun and Meena
 ];
 
-// TODO: calculate and print the bill
+// TODO: print all students, active count, and top student
 ```
 
 ### 🌟 Bonus ideas
 
-- [ ] Reject negative prices or quantities
-- [ ] Add a `category` field and a different discount per category
-- [ ] Print each line using a helper function with a return type
-- [ ] Add `npm run typecheck` to your workflow before every run
+- [ ] Add `getStudentsByCourse(students, course): Student[]`
+- [ ] Add `getAllSkills(students): string[]` (every skill from every student)
+- [ ] Return a tuple `[highest, lowest]` from a function for the marks
+- [ ] Handle an empty `marks` array safely (avoid `NaN`)
+- [ ] Handle an empty `students` array in `printTopStudent`
 
 <details>
-<summary>✅ Click for a sample solution</summary>
+<summary>✅ Sample solution</summary>
 
 ```typescript
-interface Product {
+export {};
+
+interface Student {
   id: number;
   name: string;
-  price: number;
+  age: number;
+  course: string;
+  isActive: boolean;
+  skills: string[];
+  marks: number[];
 }
 
-interface CartItem {
-  product: Product;
-  quantity: number;
-}
-
-function calculateSubtotal(cart: CartItem[]): number {
-  let subtotal = 0;
-  for (const item of cart) {
-    subtotal += item.product.price * item.quantity;
+function calculateAverage(marks: number[]): number {
+  if (marks.length === 0) {
+    return 0;
   }
-  return subtotal;
+  const total = marks.reduce((sum, m) => sum + m, 0);
+  return total / marks.length;
 }
 
-function applyDiscount(amount: number, percent: number): number {
-  return amount - (amount * percent) / 100;
+function getGrade(average: number): string {
+  if (average >= 90) return "A";
+  if (average >= 75) return "B";
+  if (average >= 60) return "C";
+  return "D";
 }
 
-function calculateGST(amount: number, rate: number): number {
-  return (amount * rate) / 100;
+function countSkills(student: Student): number {
+  return student.skills.length;
 }
 
-function formatCurrency(amount: number): string {
-  return amount.toLocaleString("en-IN", {
-    style: "currency",
-    currency: "INR",
-  });
+function displayStudent(student: Student): void {
+  const average = calculateAverage(student.marks);
+
+  console.log("------------------------------");
+  console.log(`Student #${student.id}: ${student.name}`);
+  console.log(
+    `Age: ${student.age} | Course: ${student.course} | Active: ${
+      student.isActive ? "Yes" : "No"
+    }`
+  );
+  console.log(
+    `Skills (${countSkills(student)}): ${student.skills.join(", ")}`
+  );
+  console.log(`Average: ${average.toFixed(2)} | Grade: ${getGrade(average)}`);
 }
 
-const cart: CartItem[] = [
-  { product: { id: 1, name: "Keyboard", price: 2500 }, quantity: 1 },
-  { product: { id: 2, name: "Mouse", price: 600 }, quantity: 2 },
+function printTopStudent(students: Student[]): void {
+  if (students.length === 0) {
+    console.log("No students found");
+    return;
+  }
+
+  let top = students[0];
+  for (const student of students) {
+    if (calculateAverage(student.marks) > calculateAverage(top.marks)) {
+      top = student;
+    }
+  }
+
+  console.log(
+    `🏆 Top student: ${top.name} (${calculateAverage(top.marks).toFixed(2)})`
+  );
+}
+
+const students: Student[] = [
+  {
+    id: 1,
+    name: "Priya",
+    age: 20,
+    course: "CSE",
+    isActive: true,
+    skills: ["Node.js", "TypeScript"],
+    marks: [92, 88, 95],
+  },
+  {
+    id: 2,
+    name: "Arun",
+    age: 21,
+    course: "IT",
+    isActive: true,
+    skills: ["HTML", "CSS", "JavaScript"],
+    marks: [70, 65, 80],
+  },
+  {
+    id: 3,
+    name: "Meena",
+    age: 22,
+    course: "ECE",
+    isActive: false,
+    skills: ["C"],
+    marks: [55, 60, 58],
+  },
 ];
 
-const discountPercent = 10;
-const gstRate = 18;
-
-const subtotal = calculateSubtotal(cart);
-const discounted = applyDiscount(subtotal, discountPercent);
-const gst = calculateGST(discounted, gstRate);
-const total = discounted + gst;
-
-console.log("=========== SHOP BILL ===========");
-for (const item of cart) {
-  const line = item.product.price * item.quantity;
-  console.log(`${item.product.name} x ${item.quantity}  ${formatCurrency(line)}`);
+for (const student of students) {
+  displayStudent(student);
 }
-console.log("---------------------------------");
-console.log(`Subtotal:        ${formatCurrency(subtotal)}`);
-console.log(`Discount (${discountPercent}%):  -${formatCurrency(subtotal - discounted)}`);
-console.log(`After discount:  ${formatCurrency(discounted)}`);
-console.log(`GST (${gstRate}%):       ${formatCurrency(gst)}`);
-console.log("---------------------------------");
-console.log(`TOTAL:           ${formatCurrency(total)}`);
-console.log("=================================");
-```
+console.log("------------------------------");
 
-> Currency formatting output can vary slightly by Node.js/ICU version (for example the exact spacing around `₹`), but the numbers will match.
+const activeCount: number = students.filter((s) => s.isActive).length;
+console.log(`Active students: ${activeCount}`);
+
+printTopStudent(students);
+```
 
 </details>
 
@@ -1246,85 +1952,83 @@ console.log("=================================");
 
 ## 📝 Quiz: Test Yourself
 
-Answer first, then open the answers.
+**Q1.** How do you declare an array of strings?
+- A) `let a: string = []`
+- B) `let a: string[] = []`
+- C) `let a: [string] = []`
+- D) `let a: array = []`
 
-**Q1.** What does TypeScript compile to?
-- A) Python
-- B) JavaScript
-- C) Java
-- D) Machine code
+**Q2.** What is `[number, string]` called?
+- A) Array
+- B) Union
+- C) Tuple
+- D) Interface
 
-**Q2.** Which command creates a `tsconfig.json`?
-- A) `npm init -y`
-- B) `tsc --create`
-- C) `npx tsc --init`
-- D) `node tsconfig`
-
-**Q3.** What happens to type annotations after compilation?
-- A) They become comments
-- B) They are validated at runtime
-- C) They are removed
-- D) They become strings
-
-**Q4.** What type does TypeScript infer here? `let x = 10;`
+**Q3.** Best type for data parsed from an unknown API response?
 - A) `any`
 - B) `string`
-- C) `number`
+- C) `unknown`
+- D) `never`
+
+**Q4.** Which return type fits a function that always throws?
+- A) `void`
+- B) `never`
+- C) `null`
+- D) `undefined`
+
+**Q5.** What is the inferred type of `const role = "admin";`?
+- A) `string`
+- B) `"admin"`
+- C) `any`
 - D) `unknown`
 
-**Q5.** Which option stops `tsc` from emitting files when there are errors?
-- A) `strict`
-- B) `noEmitOnError`
-- C) `skipLibCheck`
-- D) `outDir`
+**Q6.** What happens here? `let y = 5; y = "5";`
+- A) Works fine
+- B) Runtime error only
+- C) Compile-time type error
+- D) `y` becomes `any`
 
-**Q6.** Does an `interface` validate an incoming HTTP request body at runtime?
-- A) Yes, automatically
-- B) Only in strict mode
-- C) No
-- D) Only in Express
+**Q7.** Main difference between `any` and `unknown`?
+- A) None
+- B) `unknown` forces you to narrow before use
+- C) `any` is safer
+- D) `unknown` only holds strings
 
-**Q7.** Why is `@types/node` installed?
-- A) To run Node faster
-- B) To provide type declarations for Node.js APIs
-- C) To compile JavaScript
-- D) To replace npm
+**Q8.** What does `(5).toFixed(2)` return?
+- A) The number `5`
+- B) The number `5.00`
+- C) The string `"5.00"`
+- D) `NaN`
 
-**Q8.** What does `npm run typecheck` (`tsc --noEmit`) do?
-- A) Builds and runs the app
-- B) Deletes `dist/`
-- C) Checks types without writing output files
-- D) Installs types
+**Q9.** Does `unknown` validate API data automatically at runtime?
+- A) Yes
+- B) Only with strict mode
+- C) No, you must write the checks
+- D) Only for strings
 
-**Q9.** Which is a *runtime* concern that TypeScript can't solve alone?
-- A) Misspelled property name
-- B) Passing a string to a number parameter
-- C) A client sending invalid JSON
-- D) Missing return statement
-
-**Q10.** Which is the best use of `any`?
-- A) Everywhere, to avoid errors
-- B) Rarely, only when truly necessary
-- C) For all function parameters
-- D) Instead of interfaces
+**Q10.** What type does `JSON.parse()` return?
+- A) `unknown`
+- B) `object`
+- C) `string`
+- D) `any`
 
 <details>
-<summary>✅ Click for answers</summary>
+<summary>✅ Answers</summary>
 
 | Q | Answer | Why |
 |:-:|:-:|---|
-| 1 | **B** | TypeScript compiles to JavaScript |
-| 2 | **C** | `npx tsc --init` generates the config |
-| 3 | **C** | Types are erased during compilation |
-| 4 | **C** | Inferred from the initial value `10` |
-| 5 | **B** | `noEmitOnError` prevents output on errors |
-| 6 | **C** | Interfaces don't exist at runtime |
-| 7 | **B** | Gives TypeScript knowledge of Node.js APIs |
-| 8 | **C** | Only checks, doesn't emit |
-| 9 | **C** | External data needs runtime validation |
-| 10 | **B** | `any` disables type checking, so avoid it |
+| 1 | **B** | `type[]` is the array syntax |
+| 2 | **C** | Fixed length with types per position |
+| 3 | **C** | Forces safe checking |
+| 4 | **B** | The function never returns normally |
+| 5 | **B** | `const` gives a literal type |
+| 6 | **C** | `y` is inferred as `number` |
+| 7 | **B** | That's the key difference |
+| 8 | **C** | `toFixed` returns a string |
+| 9 | **C** | `unknown` is compile-time only |
+| 10 | **D** | It returns `any`, so annotate it as `unknown` |
 
-**Scoring:** 9–10 🏆 Excellent · 7–8 👍 Good · 5–6 📖 Revise Parts 5, 8 and 10 · below 5 🔁 Re-read the guide and retry
+**Scoring:** 9–10 🏆 Excellent · 7–8 👍 Good · 5–6 📖 Revise `any`/`unknown` and inference · below 5 🔁 Re-read and retry
 
 </details>
 
@@ -1334,96 +2038,115 @@ Answer first, then open the answers.
 
 ### 🟢 Beginner
 
-**1. What is TypeScript?**
-A programming language built on JavaScript that adds static type checking and other development-time features. It compiles to JavaScript.
+**1. What is a type annotation?**
+An explicit declaration of the expected type of a variable, parameter, property or other typed expression.
 
-**2. Is TypeScript a replacement for JavaScript?**
-No. It builds on JavaScript and targets JavaScript runtimes.
+**2. What is type inference?**
+TypeScript determines a type from a value or expression without an explicit annotation.
 
-**3. Difference between `.js` and `.ts` files?**
-`.js` holds JavaScript. `.ts` holds TypeScript, which may include type annotations and TypeScript-specific syntax.
+**3. Difference between `string` and `number`?**
+`string` is text; `number` is JavaScript numeric values (integers and decimals).
 
-**4. What is static type checking?**
-Checking type-related rules before the program runs, usually during development or compilation.
+**4. How do you declare an array of strings?**
+```typescript
+const skills: string[] = ["Node.js", "TypeScript"];
+```
 
-**5. What is type inference?**
-The compiler's ability to determine types from values and expressions without explicit annotations everywhere.
+**5. What is a tuple?**
+An array with a known length and a specific type at each position.
 
 ### 🟡 Intermediate
 
-**6. What is the TypeScript compiler?**
-`tsc` checks TypeScript code and can emit JavaScript according to the project's configuration.
+**6. `any` vs `unknown`?**
+`any` disables most type checking for the value. `unknown` accepts any value but requires narrowing before type-specific operations.
 
-**7. What is `tsconfig.json`?**
-The configuration file defining compiler options and which files belong to the project.
+**7. `void` vs `never`?**
+`void` means no meaningful return value (function finishes). `never` means the function never returns normally (throws or loops forever) or a value cannot exist.
 
-**8. What does `strict: true` do?**
-Enables a group of stricter type-checking options to catch more potential mistakes.
+**8. Must every variable be annotated?**
+No. TypeScript infers types from initial values and expressions.
 
-**9. Are TypeScript types available at runtime?**
-Most annotations and interfaces are erased during compilation and provide no automatic runtime validation.
+**9. Can `unknown` hold a string, number or boolean?**
+Yes, but you must narrow or validate before using it as a specific type.
 
-**10. Can TypeScript prevent every bug?**
-No. It catches many type-related errors but not incorrect business logic, failed network calls, invalid external data, or runtime failures.
+**10. What happens if you assign a string to a `number` variable?**
+The compiler reports a type error.
 
 ### 🔴 Practical
 
-**11. Why use TypeScript in a Node.js backend?**
-Better maintainability, editor support, refactoring confidence, and clear type contracts between layers.
+**11. Why is `any` discouraged?**
+It removes type checks, can hide bugs, and spreads through code that touches it.
 
-**12. What if TypeScript code has a type error?**
-The compiler reports it. Depending on configuration it may still emit JavaScript. With `noEmitOnError: true` it won't.
+**12. When use a tuple instead of an array?**
+When positions and types form a clear contract (like `[min, max]`). Use arrays for collections of similar items.
 
-**13. Compile-time checking vs runtime validation?**
-Compile-time checking examines code and declared types before execution. Runtime validation examines actual values while the program runs, including external data.
+**13. Does `unknown` validate API data?**
+No. It forces you to narrow, but runtime validation is still your job.
 
-**14. Why do we install TypeScript as a dev dependency?**
-Because the compiler is used during development and builds. The deployed app runs compiled JavaScript.
+**14. Why is `const x = "a"` typed differently from `let x = "a"`?**
+`const` can't change, so TypeScript infers the literal type `"a"`. `let` can be reassigned, so it infers `string`.
 
-**15. What's the difference between `tsc` and `tsc --noEmit`?**
-`tsc` checks and emits output files. `tsc --noEmit` only checks types.
+**15. Why is `JSON.parse` a risk in TypeScript?**
+It returns `any`, which silently disables type checking. Annotate the result as `unknown` and validate it.
 
-> 💬 **Practice tip:** Answer each question **out loud** in your own words. If you can explain it simply, you understand it.
+**16. What is narrowing?**
+Using checks like `typeof`, `Array.isArray` or `=== null` so TypeScript knows a more specific type inside a code block.
+
+**17. Should every function declare its return type?**
+Not necessarily. Explicit return types are valuable for public/exported functions and complex logic. Inference is often fine for simple local functions.
+
+**18. Why store a phone number as `string`?**
+It may have leading zeros, a `+` sign or formatting, and you never do math on it.
+
+> 💬 **Practice tip:** Explain each answer **out loud**, as if teaching a friend.
 
 ---
 
-## 📄 Day 1 Cheat Sheet
-
-### Commands
-
-```bash
-npm init -y                           # create package.json
-npm install --save-dev typescript     # install compiler
-npm install --save-dev @types/node    # Node.js type definitions
-npx tsc --init                        # create tsconfig.json
-npm run build                         # compile
-npm start                             # run compiled JS
-npm run typecheck                     # type check only
-```
-
-### Syntax
+## 📄 Day 2 Cheat Sheet
 
 ```typescript
-let name: string = "Arun";                          // annotation
-let age = 21;                                       // inference
-function add(a: number, b: number): number { ... } // typed function
-interface User { id: number; name: string; }        // object shape
+// Primitives
+let name: string = "Arun";
+let age: number = 22;
+let ok: boolean = true;
+
+// Arrays
+let skills: string[] = ["TS", "Node"];
+let marks: number[] = [90, 85];
+
+// Tuples
+let user: [number, string] = [1, "Arun"];
+let point: readonly [number, number] = [1, 2];
+
+// Special types
+let a: any;              // checker OFF (avoid!)
+let u: unknown;          // safe unknown (narrow first)
+function log(): void {}                       // no useful return
+function fail(): never { throw new Error(); } // never returns
+
+// Narrowing
+if (typeof u === "string") { u.toUpperCase(); }
+if (Array.isArray(u)) { u.length; }
+if (u !== null && typeof u === "object") { /* object */ }
+
+// Inference
+let n = 5;          // number
+const c = 5;        // 5 (literal)
 ```
 
-### Mental model
+### 🧠 Quick decisions
 
-```text
-.ts  ──(tsc: check + compile)──▶  .js  ──(Node.js)──▶  output
- ▲ types live here                  ▲ no types here
-```
-
-### Remember
-
-- ✅ Types are for **developers**, erased at runtime
-- ✅ `strict: true` in every new project
-- ✅ Validate external data at runtime
-- ✅ Types ≠ tests
-- ✅ Rebuild before `npm start`
+| Situation | Use |
+|---|---|
+| Text | `string` |
+| Math / counting | `number` |
+| Yes/no | `boolean` |
+| List of same things | `type[]` |
+| Small fixed group | tuple |
+| External / untrusted data | `unknown` |
+| Function returns nothing useful | `void` |
+| Function never returns | `never` |
+| Entity with many fields | `interface` |
 
 ---
 
@@ -1431,60 +2154,58 @@ interface User { id: number; name: string; }        // object shape
 
 | Term | Meaning |
 |---|---|
-| **Compiler** | Tool that checks and converts code (`tsc`) |
-| **Compile time** | Phase before the program runs |
-| **Runtime** | Phase when the program is actually running |
-| **Type annotation** | Explicit type, e.g. `: number` |
-| **Type inference** | Compiler guessing the type from a value |
-| **Interface** | Describes the shape of an object |
-| **Static typing** | Types checked before running |
-| **Transpile / emit** | Generate JavaScript from TypeScript |
-| **Dev dependency** | Package needed only during development |
-| **Declaration file (`.d.ts`)** | File that describes types for existing JavaScript |
-| **`any`** | Type that turns off checking for a value |
-| **`strict`** | Compiler option enabling stricter checks |
+| **Primitive** | Basic value type: `string`, `number`, `boolean` |
+| **Array** | Ordered list of values of one type |
+| **Tuple** | Fixed-length array with a type per position |
+| **Narrowing** | Using checks to make a type more specific |
+| **Type guard** | A check like `typeof x === "string"` |
+| **Literal type** | An exact value as a type, e.g. `"admin"` |
+| **Union type** | One of several types, e.g. `string \| number` (Day 5) |
+| **Inference** | TypeScript deciding a type automatically |
+| **Annotation** | A type you write explicitly |
+| **`any`** | Type that disables checking |
+| **`unknown`** | Safe "anything" type that must be narrowed |
+| **`void`** | No meaningful return value |
+| **`never`** | A value that never occurs |
+| **`NaN`** | "Not a Number" (still of type `number`) |
+| **Destructuring** | Unpacking values: `const [a, b] = arr` |
+| **Template literal** | `` `Hello ${name}` `` |
 
 ---
 
 ## 🛟 Troubleshooting
 
-| Problem | Likely cause | Fix |
+| Problem | Cause | Fix |
 |---|---|---|
-| `'tsc' is not recognized` | Not installed globally | Use `npx tsc` or the npm scripts |
+| `Cannot redeclare block-scoped variable` | Two practice files with the same variable names | Add `export {};` to the top of each file |
+| `'x' is of type 'unknown'` | Using `unknown` without a check | Narrow with `typeof` |
+| `Parameter 'x' implicitly has an 'any' type` | Missing parameter type | Add an annotation |
+| `Type 'null' is not assignable to...` | Strict null checks | Handle `null` explicitly |
+| Output looks old | Forgot to rebuild | `npm run build` then `node dist/<file>.js` |
 | `Cannot find name 'console'` | Node types missing | `npm i -D @types/node` and keep `"types": ["node"]` |
-| `Cannot find module './dist/index.js'` | You haven't built yet | `npm run build` |
-| Old output after editing | Forgot to rebuild | `npm run build`, then `npm start` |
-| `dist/` not updated | Type error + `noEmitOnError: true` | Fix the type error |
-| No `tsconfig.json` | Skipped Step 3 | `npx tsc --init` |
-| `node` not recognized | Node.js not installed or terminal not restarted | Install Node.js, reopen terminal |
-| Red underlines missing in VS Code | Wrong folder opened | Open the project root folder (where `tsconfig.json` is) |
+| `NaN` in output | Dividing by zero or bad conversion | Check inputs, e.g. empty arrays |
+| Wrong sort order for numbers | Default sort is alphabetical | `.sort((a, b) => a - b)` |
 
 ---
 
 ## ✅ Progress Tracker
 
-Copy this into your notes and tick as you go.
-
 ### Concepts
-- [ ] I can explain TypeScript in one sentence
-- [ ] I can explain JavaScript vs TypeScript
-- [ ] I understand compile time vs runtime
-- [ ] I understand type inference vs annotation
-- [ ] I know why interfaces don't validate runtime data
-
-### Setup
-- [ ] Node.js and npm installed
-- [ ] Project created with `npm init -y`
-- [ ] TypeScript and `@types/node` installed
-- [ ] `tsconfig.json` configured
-- [ ] `build`, `start`, `typecheck` scripts working
+- [ ] I understand `string`, `number`, `boolean`
+- [ ] I can create and use typed arrays
+- [ ] I can explain tuples and when to use them
+- [ ] I can explain `any` vs `unknown` in my own words
+- [ ] I can narrow `unknown` using `typeof`
+- [ ] I understand `void` vs `never`
+- [ ] I can predict inferred types
+- [ ] I know why `JSON.parse` is risky
 
 ### Practice
-- [ ] Level 1 tasks completed
-- [ ] Level 2 tasks completed
-- [ ] Level 3 tasks completed
+- [ ] Level 1 tasks done
+- [ ] Level 2 tasks done
+- [ ] Level 3 tasks done
 - [ ] Debugging challenges solved
-- [ ] Mini project finished
+- [ ] Student Management mini project finished
 - [ ] Quiz score: ____ / 10
 - [ ] Interview questions answered out loud
 
@@ -1498,29 +2219,42 @@ Copy this into your notes and tick as you go.
 
 ---
 
-## 🔜 Day 2 — Basic Types & Type Inference
+## 📝 Day 2 Key Takeaways
 
-Tomorrow we explore:
+- Annotations **declare** types; inference **discovers** them.
+- Arrays hold many similar items; tuples describe a fixed structure.
+- `any` weakens type safety; `unknown` forces safe narrowing.
+- `void` and `never` describe different kinds of function behavior.
+- `JSON.parse` returns `any`, so treat its result as `unknown`.
+- Types improve reliability but **don't replace** runtime validation.
 
-- `string`, `number`, `boolean`
-- Arrays and tuples
-- `any` vs `unknown`
-- `void` and `never`
-- Type inference in more depth
-- Type annotations in practice
-- More exercises and interview questions
+**The main lesson:** Use types to communicate intent and catch mistakes early, not as syntax to memorize.
 
 ---
 
-## 📚 Useful Resources
+## 🔜 Day 3 — Functions & Type Safety
+
+Tomorrow we explore:
+
+- Function parameter and return types
+- Optional and default parameters
+- Rest parameters
+- Function types
+- Arrow functions
+- Function overloads
+- Designing reliable functions for backend applications
+
+---
+
+## 📚 Official Resources
 
 | Resource | Link |
 |---|---|
-| Official TypeScript Docs | https://www.typescriptlang.org/docs/ |
 | TypeScript Handbook | https://www.typescriptlang.org/docs/handbook/intro.html |
-| TypeScript Playground (try code in the browser) | https://www.typescriptlang.org/play/ |
-| Node.js | https://nodejs.org/ |
-| Visual Studio Code | https://code.visualstudio.com/ |
+| Everyday Types | https://www.typescriptlang.org/docs/handbook/2/everyday-types.html |
+| More on Functions | https://www.typescriptlang.org/docs/handbook/2/functions.html |
+| Narrowing | https://www.typescriptlang.org/docs/handbook/2/narrowing.html |
+| TypeScript Playground | https://www.typescriptlang.org/play/ |
 
 ---
 
@@ -1528,9 +2262,7 @@ Tomorrow we explore:
 
 ## 💙 Learning in Public
 
-I'm documenting a 10-day TypeScript journey, from fundamentals to practical Node.js and Express.js development.
-
-The focus: **understand concepts → write code → solve problems → apply what you learn.**
+This is Day 2 of my 10-day TypeScript journey: practical examples, hands-on exercises, and real-world backend development.
 
 ### **Same Learning. Stronger Code. Bigger Opportunities.** 🚀
 
